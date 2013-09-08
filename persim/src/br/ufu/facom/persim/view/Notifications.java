@@ -1,6 +1,7 @@
 package br.ufu.facom.persim.view;
 
 import br.ufu.facom.persim.config.Path;
+import br.ufu.facom.persim.control.AudioFilePlayer;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -20,8 +21,8 @@ public class Notifications {
     public static final String ATENTION_ICON = "atention.png";
     public static final String ERROR_ICON = "error.png";
     
-    public static void showMessage (String header, String message, String type) {
-
+    public static void showMessage(String header, String message, String type) {
+        
         final JFrame frame = new JFrame();
         frame.setSize(300, 150);
         frame.setLayout(new GridBagLayout());
@@ -67,8 +68,20 @@ public class Notifications {
         Dimension scrSize = Toolkit.getDefaultToolkit().getScreenSize();// size of the screen
         Insets toolHeight = Toolkit.getDefaultToolkit().getScreenInsets(frame.getGraphicsConfiguration());// height of the task bar
         frame.setLocation(scrSize.width - frame.getWidth(), scrSize.height - toolHeight.bottom - frame.getHeight());
+        playSound();
         frame.setVisible(true);
         frame.setAlwaysOnTop(true);
-        //new SoundClipTest();
+    }
+    
+    public static synchronized void playSound() {
+        Thread thread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                AudioFilePlayer audio = new AudioFilePlayer();
+                audio.play(Path.getAudioPath("notificationSound.wav"));
+            }
+        });
+        
+        thread.start();
     }
 }

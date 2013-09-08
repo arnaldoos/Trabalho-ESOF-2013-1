@@ -2,7 +2,6 @@ package br.ufu.facom.persim.view;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
-
 //import javax.swing.JOptionPane;
 
 public final class MainWindowFrame extends javax.swing.JFrame {
@@ -11,7 +10,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.setMainWindowConfigurations();
         this.setDesktopConfigurations();
         this.visibilityConfigurations();
-        //Notifications.showMessage("Testando!", "Testando 123 Hello World!!", Notifications.ATENTION_ICON);
+        Notifications.showMessage("Testando!", "Testando 123 Hello World!!", Notifications.ATENTION_ICON);
     }
     
     private void setMainWindowConfigurations () {
