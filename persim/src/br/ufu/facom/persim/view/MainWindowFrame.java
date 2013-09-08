@@ -1,66 +1,41 @@
 package br.ufu.facom.persim.view;
 
-import com.javaswingcomponents.calendar.JSCCalendar;
-import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelCalendarUI;
-import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelCellPanel;
-import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelCellPanelBackgroundPainter;
-import com.javaswingcomponents.calendar.plaf.darksteel.DarkSteelMonthAndYearPanel;
-import java.awt.Color;
-import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.util.Locale;
-import java.util.TimeZone;
+
 //import javax.swing.JOptionPane;
 
 public final class MainWindowFrame extends javax.swing.JFrame {
     
     public MainWindowFrame() {
         this.setMainWindowConfigurations();
-        this.createCalendar();
+        this.setDesktopConfigurations();
         this.visibilityConfigurations();
+        //Notifications.showMessage("Testando!", "Testando 123 Hello World!!", Notifications.ATENTION_ICON);
     }
     
     private void setMainWindowConfigurations () {
         this.initComponents();
-        this.setTitle("PERSIM - Personal Student Info. Manager");
-        Container c = getContentPane();  
-        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();  
-        setSize(tela.width, tela.height); 
+        this.setTitle("PERSIM - Personal Student Info. Manager");  
+        Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
+        this.setSize(tela.width, tela.height); 
         this.setVisible(true);
+        
+    }
+    
+    private void setDesktopConfigurations () {
+        this.calframe = new CalendarIFrame();
+        this.desktopPane.add(this.calframe);
+    }
+                
+    private void visibilityConfigurations() {
+        this.periodosAnterioresMenu.setEnabled(false);
+        this.periodosVigentesMenu.setEnabled(false);
         
         /*int answer = JOptionPane.showConfirmDialog(this, "Não há períodos cadastrados! Antes de começar "
                 + "você deve cadastrar um novo período", 
                 "Cadastre um novo período", JOptionPane.INFORMATION_MESSAGE , 
                 JOptionPane.NO_OPTION);*/
-    }
-    
-    private void createCalendar(){
-        TimeZone timeZone = TimeZone.getDefault();
-        Locale locale = Locale.getDefault();
-        
-        this.cal = new JSCCalendar(timeZone, locale);
-        this.cal.setUI(new DarkSteelCalendarUI());
-        this.cal.setBounds(0, 0, 400, 250);
-        
-        DarkSteelCalendarUI calendarUI = (DarkSteelCalendarUI) this.cal.getUI();
-        DarkSteelMonthAndYearPanel monthAndYearPanel = (DarkSteelMonthAndYearPanel) calendarUI.getMonthAndYearPanel();
-        DarkSteelCellPanel cellPanel = (DarkSteelCellPanel) calendarUI.getCellPanel();
-        DarkSteelCellPanelBackgroundPainter cellPanelBackgroundPainter =
-                (DarkSteelCellPanelBackgroundPainter) cellPanel.getBackgroundPainter();
-        cellPanelBackgroundPainter.setHeadingBackgroundStartGradientColor(new Color(0xB0, 0xE0, 0xE6));
-        cellPanelBackgroundPainter.setHeadingBackgroundEndGradientColor(new Color(0x46, 0x82, 0xB4));
-        
-        this.cal.setCalendarCellRenderer(new CalendarRenderer());
-        
-        this.calendarioInternalFrame.add(this.cal);
-    }
-    
-    private void visibilityConfigurations() {
-        this.cal.setEnabled(false);
-        this.periodosAnterioresMenu.setEnabled(false);
-        this.periodosVigentesMenu.setEnabled(false);
-        this.calendarioInternalFrame.setIconifiable(true);        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -68,7 +43,6 @@ public final class MainWindowFrame extends javax.swing.JFrame {
 
         jMenuItem2 = new javax.swing.JMenuItem();
         desktopPane = new javax.swing.JDesktopPane();
-        calendarioInternalFrame = new javax.swing.JInternalFrame();
         menuBar = new javax.swing.JMenuBar();
         periodoMenu = new javax.swing.JMenu();
         novoPeriodoMenuItem = new javax.swing.JMenuItem();
@@ -79,24 +53,6 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         jMenuItem2.setText("jMenuItem2");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        calendarioInternalFrame.setTitle("Calendario");
-        calendarioInternalFrame.setPreferredSize(new java.awt.Dimension(400, 250));
-        calendarioInternalFrame.setVisible(true);
-
-        javax.swing.GroupLayout calendarioInternalFrameLayout = new javax.swing.GroupLayout(calendarioInternalFrame.getContentPane());
-        calendarioInternalFrame.getContentPane().setLayout(calendarioInternalFrameLayout);
-        calendarioInternalFrameLayout.setHorizontalGroup(
-            calendarioInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 408, Short.MAX_VALUE)
-        );
-        calendarioInternalFrameLayout.setVerticalGroup(
-            calendarioInternalFrameLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 221, Short.MAX_VALUE)
-        );
-
-        calendarioInternalFrame.setBounds(20, 20, 410, 250);
-        desktopPane.add(calendarioInternalFrame, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         periodoMenu.setText("Periodo");
 
@@ -172,9 +128,8 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         });
     }
     //Atributos declarados
-    private JSCCalendar cal;
+    private CalendarIFrame calframe;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JInternalFrame calendarioInternalFrame;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jMenuItem2;

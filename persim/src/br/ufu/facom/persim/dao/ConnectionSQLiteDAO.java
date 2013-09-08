@@ -1,5 +1,6 @@
 package br.ufu.facom.persim.dao;
 
+import br.ufu.facom.persim.config.Path;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -21,16 +22,12 @@ public class ConnectionSQLiteDAO {
     public ConnectionSQLiteDAO () 
             throws ClassNotFoundException, SQLException, FileNotFoundException {
         
-        String udir = System.getProperty("user.dir");       //diretorio da app.
-        String fsep = System.getProperty("file.separator"); //separador de diretorios do SO de uso
-        String dbpath = udir+fsep+"database"+fsep;          //caminho do diretorio 'database'
-            
         Class.forName("org.sqlite.JDBC");       //testa plugin sqlite
         
-        this.conn = DriverManager.getConnection("jdbc:sqlite:"+dbpath+"myclassmanager.db");
+        this.conn = DriverManager.getConnection("jdbc:sqlite:"+Path.getDatabasePath("myclassmanager.db"));
             
         if (!InitialConfDAO.isConfigured(conn)){
-            File SQLscript = new File(dbpath+"myclassmanager.sql");
+            File SQLscript = new File(Path.getDatabasePath("myclassmanager.sql"));
             InitialConfDAO.configure(this.conn, SQLscript);
         }
         
