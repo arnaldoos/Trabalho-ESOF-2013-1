@@ -15,7 +15,8 @@ CREATE TABLE disciplina (
 );
 
 CREATE TABLE bibliografia (
-	fk_disc_id CHAR(20) PRIMARY KEY NOT NULL,
+	bib_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	fk_disc_id CHAR(20),
 	bib_texto CHAR(200),
 	FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id) 
 		ON DELETE CASCADE

@@ -23,11 +23,11 @@ public class DisciplinaControl {
         }
     }
     
-    public static Disciplina load (String nome){
+    public static Disciplina load (String ID){
         try {
             DisciplinaDAO dao = new DisciplinaDAO();
             ConnectionSQLiteDAO conn = new ConnectionSQLiteDAO();
-            Disciplina disciplina = dao.load(nome, conn);
+            Disciplina disciplina = dao.load(ID, conn);
             conn.closeDB();
             return disciplina;
         } catch (SQLException e) {

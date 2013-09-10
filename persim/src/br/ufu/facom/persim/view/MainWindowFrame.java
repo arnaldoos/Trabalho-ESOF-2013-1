@@ -47,7 +47,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         novoPeriodoMenuItem = new javax.swing.JMenuItem();
         periodosAnterioresMenu = new javax.swing.JMenu();
         periodosVigentesMenu = new javax.swing.JMenu();
-        helpMenu = new javax.swing.JMenu();
+        janelasMenu = new javax.swing.JMenu();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -66,8 +66,8 @@ public final class MainWindowFrame extends javax.swing.JFrame {
 
         menuBar.add(periodoMenu);
 
-        helpMenu.setText("Janelas");
-        menuBar.add(helpMenu);
+        janelasMenu.setText("Janelas");
+        menuBar.add(janelasMenu);
 
         setJMenuBar(menuBar);
 
@@ -130,8 +130,8 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     private CalendarIFrame calframe;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenu helpMenu;
     private javax.swing.JMenuItem jMenuItem2;
+    private javax.swing.JMenu janelasMenu;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem novoPeriodoMenuItem;
     private javax.swing.JMenu periodoMenu;

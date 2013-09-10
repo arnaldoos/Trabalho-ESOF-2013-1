@@ -20,11 +20,18 @@ public class DisciplinaDAO {
         } catch (NullPointerException e) {
             ps.setNull(3, java.sql.Types.NULL);
         }
+        if (disc.getBibliografia() != null && !disc.getBibliografia().isEmpty()){
+            BibliografiaDAO bibdao = new BibliografiaDAO();
+            bibdao.save(disc, conn);
+        }
         ps.setString(4, disc.getAdicionais());
         ps.execute();
     }
     
     public Disciplina load (String ID, ConnectionSQLiteDAO conn) throws SQLException{
+        
+        Disciplina ds;
+        BibliografiaDAO bibdao = new BibliografiaDAO();
         
         String query = "SELECT * FROM disciplina LEFT OUTER JOIN professor "
                             + "ON disciplina.fk_prof_nome LIKE professor.prof_nome "
@@ -34,16 +41,19 @@ public class DisciplinaDAO {
         ps.setString(1, ID);
         ResultSet rs = ps.executeQuery();
         rs.next();
-        return build(rs);
+        ds = build(rs);
+        ds.setBibliografia(bibdao.load(ds.getID(), conn));
+        
+        return ds;
     }
     
     private Disciplina build (ResultSet rs) throws SQLException{
         Disciplina ds = new Disciplina();
-        ProfessorDAO dao = new ProfessorDAO();
+        ProfessorDAO profdao = new ProfessorDAO();
         
         ds.setID(rs.getString("disc_id"));
         ds.setNome(rs.getString("disc_nome"));
-        ds.setProfessor(dao.build(rs));
+        ds.setProfessor(profdao.build(rs));
         ds.setAdicionais(rs.getString("disc_adicionais"));
         
         return ds;

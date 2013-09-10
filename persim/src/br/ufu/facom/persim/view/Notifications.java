@@ -78,7 +78,7 @@ public class Notifications {
             @Override
             public void run() {
                 AudioFilePlayer audio = new AudioFilePlayer();
-                audio.play(Path.getAudioPath("notificationSound.wav"));
+                audio.play(Path.getAudioPath("notification.wav"));
             }
         });
         
