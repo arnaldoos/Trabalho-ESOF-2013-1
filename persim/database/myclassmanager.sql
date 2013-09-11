@@ -30,3 +30,13 @@ CREATE TABLE evento (
 	FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id)
 		ON DELETE CASCADE
 );
+
+CREATE TABLE controle_disciplina (
+        disc_id CHAR(20) PRIMARY KEY NOT NULL,
+        notas FLOAT(2,3),
+        nro_faltas INTEGER(2),
+        tarefas_adicionais CHAR(50),
+        fk_disc_id CHAR(20),
+        FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id)
+        ON DELETE CASCADE
+);
