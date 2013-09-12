@@ -48,6 +48,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         periodosAnterioresMenu = new javax.swing.JMenu();
         periodosVigentesMenu = new javax.swing.JMenu();
         janelasMenu = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -67,6 +68,15 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         menuBar.add(periodoMenu);
 
         janelasMenu.setText("Janelas");
+
+        jMenuItem1.setText("Cadastrar Evento");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
+        janelasMenu.add(jMenuItem1);
+
         menuBar.add(janelasMenu);
 
         setJMenuBar(menuBar);
@@ -90,6 +100,13 @@ public final class MainWindowFrame extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        this.eventframe = new CadastroEventoIFrame();//instancia a classe iFrmCliente  
+        desktopPane.add(this.eventframe);//adiciona o cliente no seu JdesktopPane  
+        this.eventframe.setLocation(400, 0);//colocar a tela iFrmCliente na posiÃ§Ã£o(0,0)  
+        this.eventframe.setVisible(true);//deixa visÃ­vel 
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,8 +145,10 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     }
     //Atributos declarados
     private CalendarIFrame calframe;
+    private CadastroEventoIFrame eventframe;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu janelasMenu;
     private javax.swing.JMenuBar menuBar;
