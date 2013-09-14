@@ -49,6 +49,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         periodosVigentesMenu = new javax.swing.JMenu();
         janelasMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
+        cadastroDisciplina = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -76,6 +77,14 @@ public final class MainWindowFrame extends javax.swing.JFrame {
             }
         });
         janelasMenu.add(jMenuItem1);
+
+        cadastroDisciplina.setText("Cadastrar Disciplina");
+        cadastroDisciplina.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastroDisciplinaActionPerformed(evt);
+            }
+        });
+        janelasMenu.add(cadastroDisciplina);
 
         menuBar.add(janelasMenu);
 
@@ -107,6 +116,13 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.eventframe.setLocation(400, 0);//colocar a tela iFrmCliente na posiÃ§Ã£o(0,0)  
         this.eventframe.setVisible(true);//deixa visÃ­vel 
     }//GEN-LAST:event_jMenuItem1ActionPerformed
+
+    private void cadastroDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroDisciplinaActionPerformed
+        this.eventCadastroDisciplina = new CadastroDisciplina();
+        desktopPane.add(this.eventCadastroDisciplina);
+        this.eventCadastroDisciplina.setLocation(600,0);
+        this.eventCadastroDisciplina.setVisible(true);
+    }//GEN-LAST:event_cadastroDisciplinaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,7 +162,9 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     //Atributos declarados
     private CalendarIFrame calframe;
     private CadastroEventoIFrame eventframe;
+    private CadastroDisciplina eventCadastroDisciplina;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem cadastroDisciplina;
     private javax.swing.JDesktopPane desktopPane;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;

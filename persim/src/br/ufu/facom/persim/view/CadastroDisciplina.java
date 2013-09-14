@@ -4,34 +4,22 @@
  */
 package br.ufu.facom.persim.view;
 
-import java.sql.ResultSet;
 import javax.swing.table.DefaultTableModel;
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
-import javax.swing.SpinnerDateModel;
-import javax.xml.crypto.Data;
 
 /**
  *
  * @author Ricardo & Ludma
  */
-public class CadastroDisciplina extends javax.swing.JFrame {
-    
+public class CadastroDisciplina extends javax.swing.JInternalFrame {
+
     String dia, horaAula, livros, horas, minutos;
     int contaLinhas = 0, contaLinhas2 = 0, linhaTabela;
-
     /**
-     * Creates new form CadastroDisciplina
+     * Creates new form Teste
      */
     public CadastroDisciplina() {
         initComponents();
         listaDiaSemana();
-        //preencher_tabela(); 
     }
 
     /**
@@ -43,37 +31,48 @@ public class CadastroDisciplina extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        nomeDisciplina = new javax.swing.JTextField();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tabBibliografia = new javax.swing.JTable();
         jLabel3 = new javax.swing.JLabel();
+        nomeDisciplina = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        livro = new javax.swing.JTextField();
+        addLivro = new javax.swing.JButton();
+        remveLivro = new javax.swing.JButton();
         salaAula = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        diaSemana = new java.awt.Choice();
-        jLabel5 = new javax.swing.JLabel();
-        addDiaHora = new javax.swing.JButton();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tabelaDiaAula = new javax.swing.JTable();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         nomeProfessor = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         emailProfessor = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        addDiaHora = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabelaDiaAula = new javax.swing.JTable();
         remvDiaHora = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        livro = new javax.swing.JTextField();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        tabBibliografia = new javax.swing.JTable();
-        addLivro = new javax.swing.JButton();
-        remveLivro = new javax.swing.JButton();
-        btCancelar = new javax.swing.JButton();
-        btSalvar = new javax.swing.JButton();
+        diaSemana = new java.awt.Choice();
         jSpinner1 = new javax.swing.JSpinner();
         jSpinner2 = new javax.swing.JSpinner();
+        btSalvar = new javax.swing.JButton();
+        btCancelar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(370, 650));
+        jLabel2.setText("Nome Disciplina:");
+
+        tabBibliografia.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null}
+            },
+            new String [] {
+                "Bibliografia"
+            }
+        ));
+        jScrollPane2.setViewportView(tabBibliografia);
+
+        jLabel3.setText("Sala:");
 
         nomeDisciplina.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -81,12 +80,26 @@ public class CadastroDisciplina extends javax.swing.JFrame {
             }
         });
 
+        jLabel10.setText("Livro:");
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Cadastrar Disciplinas");
 
-        jLabel2.setText("Nome Disciplina:");
+        addLivro.setText("Adicionar Livro");
+        addLivro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        addLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addLivroActionPerformed(evt);
+            }
+        });
 
-        jLabel3.setText("Sala:");
+        remveLivro.setText("Remover Livro");
+        remveLivro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        remveLivro.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                remveLivroActionPerformed(evt);
+            }
+        });
 
         salaAula.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +108,16 @@ public class CadastroDisciplina extends javax.swing.JFrame {
         });
 
         jLabel4.setText("Dia:");
+
+        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel9.setText("Professor");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Bibliografia");
+
+        jLabel6.setText("Professor:");
+
+        jLabel7.setText("Email:");
 
         jLabel5.setText("Horário:");
 
@@ -115,12 +138,6 @@ public class CadastroDisciplina extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(tabelaDiaAula);
-        tabelaDiaAula.getColumnModel().getColumn(0).setHeaderValue("Dia");
-        tabelaDiaAula.getColumnModel().getColumn(1).setHeaderValue("Hora/Aula");
-
-        jLabel6.setText("Professor:");
-
-        jLabel7.setText("Email:");
 
         remvDiaHora.setText("Remover Dia/HoraAula");
         remvDiaHora.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -130,48 +147,14 @@ public class CadastroDisciplina extends javax.swing.JFrame {
             }
         });
 
-        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel8.setText("Bibliografia");
-
-        jLabel9.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
-        jLabel9.setText("Professor");
-
-        jLabel10.setText("Livro:");
-
-        tabBibliografia.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null}
-            },
-            new String [] {
-                "Bibliografia"
-            }
-        ));
-        jScrollPane2.setViewportView(tabBibliografia);
-
-        addLivro.setText("Adicionar Livro");
-        addLivro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        addLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLivroActionPerformed(evt);
-            }
-        });
-
-        remveLivro.setText("Remover Livro");
-        remveLivro.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        remveLivro.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                remveLivroActionPerformed(evt);
-            }
-        });
-
-        btCancelar.setText("Cancelar");
-
-        btSalvar.setText("Salvar");
-
         jSpinner1.setModel(new javax.swing.SpinnerNumberModel(0, 0, 24, 1));
         jSpinner1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         jSpinner2.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+
+        btSalvar.setText("Salvar");
+
+        btCancelar.setText("Cancelar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -236,13 +219,13 @@ public class CadastroDisciplina extends javax.swing.JFrame {
                         .addComponent(jLabel3)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(salaAula, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(44, 44, 44))
+                .addGap(44, 88, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, Short.MAX_VALUE)
                 .addComponent(btSalvar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btCancelar)
-                .addContainerGap())
+                .addGap(114, 114, 114))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -295,7 +278,7 @@ public class CadastroDisciplina extends javax.swing.JFrame {
                     .addComponent(remveLivro))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 31, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btCancelar)
                     .addComponent(btSalvar))
@@ -309,27 +292,6 @@ public class CadastroDisciplina extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nomeDisciplinaActionPerformed
 
-    private void salaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaAulaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_salaAulaActionPerformed
-
-    private void addDiaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDiaHoraActionPerformed
-            dia = diaSemana.getSelectedItem().toString();
-            horas = jSpinner1.getValue().toString();
-            minutos = jSpinner2.getValue().toString();
-            horaAula = horas+":"+minutos;
-            //System.out.println("Dia "+dia+", hora/aula: "+horaAula+"!!");
-            System.out.println("Hora "+horaAula+"!!");           
-            preencher_tabela(dia,horaAula);
-            limpaDiaHora();
-    }//GEN-LAST:event_addDiaHoraActionPerformed
-
-    private void remvDiaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remvDiaHoraActionPerformed
-        linhaTabela = tabelaDiaAula.getSelectedRow();
-        //System.out.println("Linha "+linhaTabela);
-        removerDaTabela(linhaTabela);
-    }//GEN-LAST:event_remvDiaHoraActionPerformed
-
     private void addLivroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLivroActionPerformed
         livros = livro.getText().toString();
         preencheBibliografia(livros);
@@ -341,11 +303,26 @@ public class CadastroDisciplina extends javax.swing.JFrame {
         removeBibliografia(linhaTabela);
     }//GEN-LAST:event_remveLivroActionPerformed
 
-    public void limpaDiaHora()
-    {
-        //horarioAula.setText("");
-    }
-    
+    private void salaAulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salaAulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_salaAulaActionPerformed
+
+    private void addDiaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addDiaHoraActionPerformed
+        dia = diaSemana.getSelectedItem().toString();
+        horas = jSpinner1.getValue().toString();
+        minutos = jSpinner2.getValue().toString();
+        horaAula = horas+":"+minutos;
+        //System.out.println("Dia "+dia+", hora/aula: "+horaAula+"!!");
+        System.out.println("Hora "+horaAula+"!!");
+        preencher_tabela(dia,horaAula);
+    }//GEN-LAST:event_addDiaHoraActionPerformed
+
+    private void remvDiaHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_remvDiaHoraActionPerformed
+        linhaTabela = tabelaDiaAula.getSelectedRow();
+        //System.out.println("Linha "+linhaTabela);
+        removerDaTabela(linhaTabela);
+    }//GEN-LAST:event_remvDiaHoraActionPerformed
+
     public void limpaBibliografia()
     {
         livro.setText("");
@@ -357,9 +334,7 @@ public class CadastroDisciplina extends javax.swing.JFrame {
         diaSemana.addItem("Quarta");
         diaSemana.addItem("Quinta");
         diaSemana.addItem("Sexta");
-        diaSemana.addItem("Sabado");
-        
-        //edtNumDept.addItem(result.getString("numero").toString());            
+        diaSemana.addItem("Sabado");         
     }
     
     public void preencher_tabela(String dia, String horaAula) {
@@ -390,40 +365,7 @@ public class CadastroDisciplina extends javax.swing.JFrame {
         bibliografia.removeRow(linha);
         contaLinhas2--;
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CadastroDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CadastroDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CadastroDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CadastroDisciplina.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new CadastroDisciplina().setVisible(true);
-            }
-        });
-    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addDiaHora;
     private javax.swing.JButton addLivro;
