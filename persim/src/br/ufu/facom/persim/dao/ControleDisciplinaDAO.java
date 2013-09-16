@@ -5,6 +5,7 @@
 package br.ufu.facom.persim.dao;
 import br.ufu.facom.persim.model.ControleDisciplina;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 /**
@@ -22,5 +23,35 @@ public class ControleDisciplinaDAO {
         ps.setString(4, ctr.getTrf_adicionais());
         ps.setString(4, ctr.getTrf_adicionais());
         ps.execute();
+    }
+
+
+public  ControleDisciplina load (String ID, ConnectionSQLiteDAO conn) throws SQLException{
+        
+        ControleDisciplina ctr;
+        
+        String query = "SELECT * FROM controle_disciplina LEFT OUTER JOIN disciplina "
+                            + "controle_disciplina.disc_id = ?";
+        
+        PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
+        ps.setString(1, ID);
+        ResultSet rs = ps.executeQuery();
+        rs.next();
+        ctr = build(rs);
+ 
+        
+        return ctr;
+    }
+
+private ControleDisciplina build (ResultSet rs) throws SQLException{
+        ControleDisciplina ctr = new ControleDisciplina();
+        
+        ctr.setDisc_id(rs.getString("disc_id"));
+        ctr.setNotas(rs.getFloat("notas"));
+        ctr.setFaltas(rs.getInt("nro_faltas"));
+        ctr.setTrf_adicionais(rs.getString("tarefas_adicionais"));
+        
+        
+        return ctr;
     }
 }
