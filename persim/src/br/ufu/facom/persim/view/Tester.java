@@ -58,7 +58,7 @@ public class Tester {
         }
     }
     
-    /* public static void testeControleNotasFaltas() throws FileNotFoundException {
+   /*  public static void testeControleNotasFaltas() throws FileNotFoundException {
        System.out.println("------------GRAVANDO---------------");
         ControleDisciplina ctr = new ControleDisciplina("1",20,2,"Seminario ESOF");
         ControleDisciplinaControl.save(ctr);

@@ -21,7 +21,6 @@ public class ControleDisciplinaDAO {
         ps.setFloat(2, ctr.getNotas());
         ps.setInt(3, ctr.getFaltas());
         ps.setString(4, ctr.getTrf_adicionais());
-        ps.setString(4, ctr.getTrf_adicionais());
         ps.execute();
     }
 
