@@ -8,7 +8,8 @@ CREATE TABLE disciplina (
 	disc_id CHAR(20) PRIMARY KEY NOT NULL,
 	disc_nome CHAR(60),
 	fk_prof_nome CHAR(60),
-	disc_adicionais CHAR(512),
+	disc_sala CHAR(512),
+	disc_horario CHAR(512),
 	FOREIGN KEY (fk_prof_nome) REFERENCES professor(prof_nome)
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE
