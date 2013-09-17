@@ -1,8 +1,11 @@
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.control.ControleDisciplinaControl;
 import br.ufu.facom.persim.control.DisciplinaControl;
+import br.ufu.facom.persim.model.ControleDisciplina;
 import br.ufu.facom.persim.model.Disciplina;
 import br.ufu.facom.persim.model.Professor;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -12,9 +15,11 @@ import java.util.List;
  */
 public class Tester {
     
-    public static void main (String[] args){
-        testeGravaDisciplina();
-        testeLoadDisciplina();
+    public static void main (String[] args) throws FileNotFoundException{
+       // testeGravaDisciplina();
+       // testeLoadDisciplina();
+        
+        //testeControleNotasFaltas();
     }
     
     public static void testeGravaDisciplina(){
@@ -52,4 +57,20 @@ public class Tester {
             System.out.println("Bibliografia -> "+string);
         }
     }
+    
+   /*  public static void testeControleNotasFaltas() throws FileNotFoundException {
+       System.out.println("------------GRAVANDO---------------");
+        ControleDisciplina ctr = new ControleDisciplina("1",20,2,"Seminario ESOF");
+        ControleDisciplinaControl.save(ctr);
+        System.out.println("ds: "+ctr.getDisc_id()+" <- "+ctr.getFaltas()+" <- "+ctr.getFaltas());
+
+        
+    }
+     
+      public static void testeLoadControleDisciplina(){
+        System.out.println("------------RECUPERANDO------------");
+        ControleDisciplina ctr = ControleDisciplinaControl.load("1");
+        
+        
+    }*/
 }

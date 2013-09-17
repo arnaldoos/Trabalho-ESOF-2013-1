@@ -8,7 +8,8 @@ CREATE TABLE disciplina (
 	disc_id CHAR(20) PRIMARY KEY NOT NULL,
 	disc_nome CHAR(60),
 	fk_prof_nome CHAR(60),
-	disc_adicionais CHAR(512),
+	disc_sala CHAR(512),
+	disc_horario CHAR(512),
 	FOREIGN KEY (fk_prof_nome) REFERENCES professor(prof_nome)
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE
@@ -36,7 +37,6 @@ CREATE TABLE controle_disciplina (
         notas FLOAT(2,3),
         nro_faltas INTEGER(2),
         tarefas_adicionais CHAR(50),
-        fk_disc_id CHAR(20),
-        FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id)
+        FOREIGN KEY (disc_id) REFERENCES disciplina(disc_id)
         ON DELETE CASCADE
 );
