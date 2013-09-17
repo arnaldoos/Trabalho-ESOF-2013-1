@@ -4,6 +4,8 @@
  */
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.control.TrabalhosControl;
+import br.ufu.facom.persim.model.Trabalhos;
 import java.beans.PropertyVetoException;
 import java.util.List;
 import java.util.logging.Level;
@@ -16,8 +18,8 @@ import javax.swing.table.DefaultTableModel;
  */
 public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFrame {
 
-    int linhas1=0, linhas2=0, linhaTabela;
-    String descricaoTrabalho, descricaoReuniao, dataTrabalho, dataReuniao;
+    int linhas1=0, linhas2=0, linhas3=0, linhaTabela;
+    String descricaoTrabalho, descricaoReuniao, dataTrabalho, dataReuniao, evento, diaEvento, horaEvento, minutoEvento;
     List<String> trabalhos;
     List<String> reunioes;
     /**
@@ -58,10 +60,25 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         removeReuniao = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tbReuniao = new javax.swing.JTable();
-        addEventos = new javax.swing.JButton();
-        cancelar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
+        jLabel7 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        contoloDisciplina = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtEvento = new javax.swing.JTextArea();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        tbEventos = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        txtData = new javax.swing.JFormattedTextField();
+        jLabel11 = new javax.swing.JLabel();
+        horas = new javax.swing.JSpinner();
+        minutos = new javax.swing.JSpinner();
+        addEvento = new javax.swing.JButton();
+        rmvEvento = new javax.swing.JButton();
+        cancelar = new javax.swing.JButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel1.setText("Entrega");
@@ -165,60 +182,44 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         tbReuniao.getColumnModel().getColumn(0).setMinWidth(220);
         tbReuniao.getColumnModel().getColumn(0).setMaxWidth(220);
 
-        addEventos.setText("Finalizar");
-
-        cancelar.setText("Cancelar");
-        cancelar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel2)
-                                    .addGroup(jPanel1Layout.createSequentialGroup()
-                                        .addComponent(jLabel3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(dtEntregaTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(addEntregaTrabalho)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(removeTrabalho))
-                            .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
-                        .addGap(56, 56, 56)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel2)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(dtEntregaTrabalho, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(addEntregaTrabalho)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(removeTrabalho))
+                    .addComponent(txtDescricao, javax.swing.GroupLayout.Alignment.LEADING))
+                .addGap(56, 56, 56)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel5)
                                 .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel5)
-                                        .addGroup(jPanel1Layout.createSequentialGroup()
-                                            .addComponent(jLabel6)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(dtReuniao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(addReuniao)))
+                                    .addComponent(jLabel6)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(removeReuniao))
-                                .addComponent(txtDescricao1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(297, 297, 297)
-                        .addComponent(addEventos)
-                        .addGap(18, 18, 18)
-                        .addComponent(cancelar)))
+                                    .addComponent(dtReuniao, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(addReuniao)))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(removeReuniao))
+                        .addComponent(txtDescricao1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(39, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -254,64 +255,217 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
                             .addComponent(removeReuniao))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addEventos)
-                    .addComponent(cancelar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(50, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Trabalhos", jPanel1);
+
+        jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel7.setText("Provas:");
+
+        contoloDisciplina.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Disciplina", "Notas", "Faltas"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(contoloDisciplina);
+        contoloDisciplina.getColumnModel().getColumn(0).setResizable(false);
+        contoloDisciplina.getColumnModel().getColumn(1).setResizable(false);
+        contoloDisciplina.getColumnModel().getColumn(2).setResizable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 751, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 351, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Provas", jPanel2);
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        jLabel8.setText("Descrição/Data/Hora do evento:");
+
+        jLabel9.setText("Descrição:");
+
+        txtEvento.setColumns(20);
+        txtEvento.setRows(5);
+        jScrollPane4.setViewportView(txtEvento);
+
+        tbEventos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Descrição", "Data", "Hora"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane5.setViewportView(tbEventos);
+        tbEventos.getColumnModel().getColumn(0).setResizable(false);
+        tbEventos.getColumnModel().getColumn(0).setPreferredWidth(300);
+        tbEventos.getColumnModel().getColumn(1).setResizable(false);
+        tbEventos.getColumnModel().getColumn(2).setResizable(false);
+
+        jLabel10.setText("Data:");
+
+        try {
+            txtData.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.MaskFormatter("##/##/####")));
+        } catch (java.text.ParseException ex) {
+            ex.printStackTrace();
+        }
+
+        jLabel11.setText("Horário:");
+
+        horas.setModel(new javax.swing.SpinnerNumberModel(0, 0, 23, 1));
+        horas.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+
+        minutos.setModel(new javax.swing.SpinnerNumberModel(0, 0, 59, 1));
+
+        addEvento.setText("Adicionar Evento");
+        addEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addEventoActionPerformed(evt);
+            }
+        });
+
+        rmvEvento.setText("Remover Evento");
+        rmvEvento.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rmvEventoActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 771, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(jLabel8)
+                        .addGroup(jPanel3Layout.createSequentialGroup()
+                            .addComponent(jLabel9)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jScrollPane4)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel11)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(horas, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(minutos, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addComponent(addEvento)
+                        .addGap(18, 18, 18)
+                        .addComponent(rmvEvento)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 401, Short.MAX_VALUE)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel8)
+                        .addGap(27, 27, 27)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel9)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(21, 21, 21)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel10)
+                            .addComponent(txtData, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel11)
+                            .addComponent(horas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(minutos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(addEvento)
+                            .addComponent(rmvEvento))
+                        .addGap(53, 53, 53))
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 384, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(0, 17, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Extra Curriculares", jPanel3);
+
+        cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jTabbedPane1)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jTabbedPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(cancelar)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(cancelar)
+                .addGap(0, 18, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void addEntregaTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntregaTrabalhoActionPerformed
-        dataTrabalho = dtEntregaTrabalho.getText().toString();
-        descricaoTrabalho = txtDescTrabalho.getText().toString();
-        System.out.println("DescTrabalho "+descricaoTrabalho);
-        tbTrabalho(descricaoTrabalho, dataTrabalho);
+        gravarTBTrabalho();
+        recuperaTBTrabalho();
     }//GEN-LAST:event_addEntregaTrabalhoActionPerformed
 
     private void removeTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTrabalhoActionPerformed
@@ -338,6 +492,34 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         }
     }//GEN-LAST:event_cancelarActionPerformed
 
+    private void addEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventoActionPerformed
+        evento = txtEvento.getText().toString();
+        diaEvento = txtData.getText().toString();
+        horaEvento = horas.getValue().toString();
+        minutoEvento = minutos.getValue().toString();
+        tbEvento(evento, diaEvento, horaEvento+":"+minutoEvento);
+    }//GEN-LAST:event_addEventoActionPerformed
+
+    private void rmvEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmvEventoActionPerformed
+        linhaTabela = tbEventos.getSelectedRow();
+        removerEvento(linhaTabela);
+    }//GEN-LAST:event_rmvEventoActionPerformed
+
+    public void tbEvento(String descricao, String dia, String hora)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
+        modelo.setNumRows(linhas3);
+        modelo.addRow(new Object[]{descricao,dia,hora});
+        linhas3++;
+    }
+    
+    public void removerEvento(int linha)
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
+        modelo.removeRow(linha);
+        linhas3--;
+    }
+    
     public void tbTrabalho(String descricao, String dia) {
         //Conexao.conectar();        
         DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
@@ -350,6 +532,23 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
         modelo.removeRow(linha);
         linhas1--;
+    }
+    
+    public void gravarTBTrabalho()
+    {
+        dataTrabalho = dtEntregaTrabalho.getText().toString();
+        descricaoTrabalho = txtDescTrabalho.getText().toString();
+        System.out.println("DescTrabalho "+descricaoTrabalho);
+        tbTrabalho(descricaoTrabalho, dataTrabalho);
+        Trabalhos trab = new Trabalhos(descricaoTrabalho, dataTrabalho);
+        TrabalhosControl.save(trab);
+    }
+    
+    public void recuperaTBTrabalho()
+    {
+        Trabalhos trab = TrabalhosControl.load();
+        System.out.println("Descricao -> "+trab.getDecricao());
+        System.out.println("Data -> "+trab.getDia());
     }
     
     public void tableReuniao(String descricao, String dia) {
@@ -368,30 +567,45 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEntregaTrabalho;
-    private javax.swing.JButton addEventos;
+    private javax.swing.JButton addEvento;
     private javax.swing.JButton addReuniao;
     private javax.swing.JButton cancelar;
+    private javax.swing.JTable contoloDisciplina;
     private javax.swing.JFormattedTextField dtEntregaTrabalho;
     private javax.swing.JFormattedTextField dtReuniao;
+    private javax.swing.JSpinner horas;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JScrollPane jScrollPane4;
+    private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JSpinner minutos;
     private javax.swing.JButton removeReuniao;
     private javax.swing.JButton removeTrabalho;
+    private javax.swing.JButton rmvEvento;
     private javax.swing.JTable tbEntregaTrabalho;
+    private javax.swing.JTable tbEventos;
     private javax.swing.JTable tbReuniao;
+    private javax.swing.JFormattedTextField txtData;
     private javax.swing.JTextArea txtDescReuniao;
     private javax.swing.JTextArea txtDescTrabalho;
     private javax.swing.JScrollPane txtDescricao;
     private javax.swing.JScrollPane txtDescricao1;
+    private javax.swing.JTextArea txtEvento;
     // End of variables declaration//GEN-END:variables
 }
