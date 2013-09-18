@@ -53,4 +53,15 @@ private ControleDisciplina build (ResultSet rs) throws SQLException{
         
         return ctr;
     }
+
+    public ControleDisciplina load(ConnectionSQLiteDAO conn) throws SQLException{
+        ControleDisciplina ctr;
+        
+        String query = "SELECT * FROM controle_disciplina LEFT OUTER JOIN disciplina;";
+        
+        PreparedStatement ps = conn.getDBConnection().prepareStatement(query);       
+        ResultSet rs = ps.executeQuery();
+        ctr = build(rs);        
+        return ctr;
+    }
 }

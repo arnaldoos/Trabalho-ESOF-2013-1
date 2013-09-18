@@ -47,5 +47,22 @@ public class ControleDisciplinaControl {
         }
         return null;
     }
+
+    public static ControleDisciplina load() {
+        try {
+            ControleDisciplinaDAO dao = new ControleDisciplinaDAO();
+            ConnectionSQLiteDAO conn = new ConnectionSQLiteDAO();
+            ControleDisciplina ctr = dao.load(conn);
+            conn.closeDB();
+            return ctr;
+        } catch (SQLException e) {
+            System.err.println("Problema ao recuperar controle de disciplina: " + e.getMessage());
+        } catch (ClassNotFoundException e) {
+            System.err.println("Nao foi possivel encontrar plugin do banco de dados"+e.getMessage());
+        } catch (FileNotFoundException e) {
+            System.err.println("Problema ao configurar banco de dados: "+e.getMessage());
+        }
+        return null;
+    }
     
 }

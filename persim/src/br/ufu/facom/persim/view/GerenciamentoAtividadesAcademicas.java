@@ -7,9 +7,11 @@ package br.ufu.facom.persim.view;
 import br.ufu.facom.persim.control.TrabalhosControl;
 import br.ufu.facom.persim.control.ReunioesControl;
 import br.ufu.facom.persim.control.EventosControl;
+import br.ufu.facom.persim.control.ControleDisciplinaControl;
 import br.ufu.facom.persim.model.Trabalhos;
 import br.ufu.facom.persim.model.Reunioes;
 import br.ufu.facom.persim.model.Eventos;
+import br.ufu.facom.persim.model.ControleDisciplina;
 import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.util.Iterator;
@@ -72,7 +74,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         jPanel2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        contoloDisciplina = new javax.swing.JTable();
+        controleDisciplina = new javax.swing.JTable();
         jPanel3 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -272,7 +274,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
         jLabel7.setText("Provas:");
 
-        contoloDisciplina.setModel(new javax.swing.table.DefaultTableModel(
+        controleDisciplina.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
@@ -288,10 +290,10 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(contoloDisciplina);
-        contoloDisciplina.getColumnModel().getColumn(0).setResizable(false);
-        contoloDisciplina.getColumnModel().getColumn(1).setResizable(false);
-        contoloDisciplina.getColumnModel().getColumn(2).setResizable(false);
+        jScrollPane3.setViewportView(controleDisciplina);
+        controleDisciplina.getColumnModel().getColumn(0).setResizable(false);
+        controleDisciplina.getColumnModel().getColumn(1).setResizable(false);
+        controleDisciplina.getColumnModel().getColumn(2).setResizable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -503,7 +505,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     private void rmvEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmvEventoActionPerformed
         removeTBEvento();
     }//GEN-LAST:event_rmvEventoActionPerformed
-
+        
     public void tbEvento(String descricao, String dia, String hora)
     {
         DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
@@ -547,6 +549,13 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         hEvento = modelo.getValueAt(linhaTabela, 2).toString();
         EventosControl.remove(descricaoTrabalho, dataTrabalho, hEvento);
         removerEvento(linhaTabela);
+    }
+    
+    public void recuperaControleDisciplina()
+    {
+        ControleDisciplina control = ControleDisciplinaControl.load();
+        DefaultTableModel modelo = (DefaultTableModel) controleDisciplina.getModel();
+        modelo.addRow(new Object[]{control.getDisc_id(),control.getNotas(),control.getFaltas()});
     }
     
     public void tbTrabalho(String descricao, String dia) {
@@ -637,7 +646,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     private javax.swing.JButton addEvento;
     private javax.swing.JButton addReuniao;
     private javax.swing.JButton cancelar;
-    private javax.swing.JTable contoloDisciplina;
+    private javax.swing.JTable controleDisciplina;
     private javax.swing.JFormattedTextField dtEntregaTrabalho;
     private javax.swing.JFormattedTextField dtReuniao;
     private javax.swing.JSpinner horas;
