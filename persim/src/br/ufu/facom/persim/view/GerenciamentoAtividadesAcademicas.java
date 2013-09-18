@@ -16,6 +16,7 @@ import java.beans.PropertyVetoException;
 import java.sql.ResultSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -338,7 +339,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false
+                true, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -518,7 +519,10 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     {
         DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
         modelo.removeRow(linha);
-        linhas3--;
+        if(linhas3>0)
+        {
+            linhas3--;
+        }
     }
     
     public void gravarTBEvento()
@@ -528,16 +532,22 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         horaEvento = horas.getValue().toString();
         minutoEvento = minutos.getValue().toString();
         tbEvento(evento, diaEvento, horaEvento+":"+minutoEvento);
-        Eventos even = new Eventos(descricaoTrabalho, diaEvento, horaEvento+":"+minutoEvento);
+        Eventos even = new Eventos(evento, diaEvento, horaEvento+":"+minutoEvento);
         EventosControl.save(even);
     }
     
     public void recuperaTBEvento()
     {
+        try
+        {
         Eventos even = EventosControl.load();
         DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
-        modelo.addRow(new Object[]{even.getDecricao(),even.getDia(),even.getHora()});
+        modelo.addRow(new Object[]{even.getDecricao(),even.getDia(),even.getHora()});        
         
+        }catch(Exception e)
+        {
+            System.out.println("Erro "+e);
+        }
     }
     
     public void removeTBEvento()
@@ -547,7 +557,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         evento = modelo.getValueAt(linhaTabela, 0).toString();
         diaEvento = modelo.getValueAt(linhaTabela, 1).toString();
         hEvento = modelo.getValueAt(linhaTabela, 2).toString();
-        EventosControl.remove(descricaoTrabalho, dataTrabalho, hEvento);
+        EventosControl.remove(evento, diaEvento, hEvento);
         removerEvento(linhaTabela);
     }
     
@@ -569,7 +579,10 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     public void removerTrabalho(int linha){
         DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
         modelo.removeRow(linha);
-        linhas1--;
+        if(linhas1>0)
+        {
+            linhas1--;
+        }
     }
     
     public void gravarTBTrabalho()
@@ -584,10 +597,15 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     
     public void recuperaTBTrabalho()
     {
+        try
+        {
         Trabalhos trab = TrabalhosControl.load();
         DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
-        modelo.addRow(new Object[]{trab.getDecricao(),trab.getDia()});
-        
+        modelo.addRow(new Object[]{trab.getDecricao(),trab.getDia()});                
+        } catch(Exception e)
+        {
+            System.out.println("Erro "+e);
+        }
     }
     
     public void removeTBTrabalho()
@@ -611,7 +629,10 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     public void removerReuniao(int linha){
         DefaultTableModel modelo = (DefaultTableModel) tbReuniao.getModel();
         modelo.removeRow(linha);
-        linhas2--;
+        if(linhas2>0)
+        {
+            linhas2--;
+        }
     }
     
     public void gravarTBReuniao()
@@ -626,9 +647,15 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     
     public void recuperaTBReuniao()
     {
+        try
+        {
         Reunioes reun = ReunioesControl.load();
         DefaultTableModel modelo = (DefaultTableModel) tbReuniao.getModel();
-        modelo.addRow(new Object[]{reun.getDecricao(),reun.getDia()});        
+        modelo.addRow(new Object[]{reun.getDecricao(),reun.getDia()});                
+        } catch(Exception e)
+        {
+            System.out.println("Erro "+e);
+        }
     }
     
     public void removeTBReuniao()

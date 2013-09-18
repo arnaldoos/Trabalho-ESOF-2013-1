@@ -33,7 +33,7 @@ public class EventosDAO {
     public void remove (String descricao, String data, String hora, ConnectionSQLiteDAO conn) throws SQLException
     {
         Eventos ds;
-        String query = "delete from eventos where even_descricao = ? and even_dia = ? and even_hora = ?;";
+        String query = "delete from eventos where even_descricao = ? and even_data = ? and even_hora = ?;";
         PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
         ps.setString(1, descricao);
         ps.setString(2, data);
@@ -45,7 +45,7 @@ public class EventosDAO {
         Eventos ds = new Eventos();
         
         ds.setDescricao(rs.getString("even_descricao"));
-        ds.setDia(rs.getString("even_dia"));
+        ds.setDia(rs.getString("even_data"));
         ds.setHora(rs.getString("even_hora"));
         
         return ds;

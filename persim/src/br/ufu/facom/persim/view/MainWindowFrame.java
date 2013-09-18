@@ -50,6 +50,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         janelasMenu = new javax.swing.JMenu();
         jMenuItem1 = new javax.swing.JMenuItem();
         cadastroDisciplina = new javax.swing.JMenuItem();
+        gerenciamentoAtivAcademicas = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -85,6 +86,14 @@ public final class MainWindowFrame extends javax.swing.JFrame {
             }
         });
         janelasMenu.add(cadastroDisciplina);
+
+        gerenciamentoAtivAcademicas.setText("Gerenciamente Atividades Academicas");
+        gerenciamentoAtivAcademicas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                gerenciamentoAtivAcademicasActionPerformed(evt);
+            }
+        });
+        janelasMenu.add(gerenciamentoAtivAcademicas);
 
         menuBar.add(janelasMenu);
 
@@ -123,6 +132,13 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.eventCadastroDisciplina.setLocation(600,0);
         this.eventCadastroDisciplina.setVisible(true);
     }//GEN-LAST:event_cadastroDisciplinaActionPerformed
+
+    private void gerenciamentoAtivAcademicasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_gerenciamentoAtivAcademicasActionPerformed
+        this.eventGAA = new GerenciamentoAtividadesAcademicas();
+        desktopPane.add(this.eventGAA);
+        this.eventGAA.setLocation(900, 0);
+        this.eventGAA.setVisible(true);
+    }//GEN-LAST:event_gerenciamentoAtivAcademicasActionPerformed
 
     /**
      * @param args the command line arguments
@@ -163,9 +179,11 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     private CalendarIFrame calframe;
     private CadastroEventoIFrame eventframe;
     private CadastroDisciplina eventCadastroDisciplina;
+    private GerenciamentoAtividadesAcademicas eventGAA;
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem cadastroDisciplina;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem gerenciamentoAtivAcademicas;
     private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenu janelasMenu;
