@@ -5,8 +5,14 @@
 package br.ufu.facom.persim.view;
 
 import br.ufu.facom.persim.control.TrabalhosControl;
+import br.ufu.facom.persim.control.ReunioesControl;
+import br.ufu.facom.persim.control.EventosControl;
 import br.ufu.facom.persim.model.Trabalhos;
+import br.ufu.facom.persim.model.Reunioes;
+import br.ufu.facom.persim.model.Eventos;
 import java.beans.PropertyVetoException;
+import java.sql.ResultSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,7 +25,7 @@ import javax.swing.table.DefaultTableModel;
 public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFrame {
 
     int linhas1=0, linhas2=0, linhas3=0, linhaTabela;
-    String descricaoTrabalho, descricaoReuniao, dataTrabalho, dataReuniao, evento, diaEvento, horaEvento, minutoEvento;
+    String descricaoTrabalho, descricaoReuniao, dataTrabalho, dataReuniao, evento, diaEvento, horaEvento, minutoEvento, hEvento;
     List<String> trabalhos;
     List<String> reunioes;
     /**
@@ -27,6 +33,9 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
      */
     public GerenciamentoAtividadesAcademicas() {
         initComponents();
+        recuperaTBTrabalho();  
+        recuperaTBEvento();
+        recuperaTBReuniao();
     }
 
     /**
@@ -457,7 +466,7 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
                 .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 429, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cancelar)
-                .addGap(0, 18, Short.MAX_VALUE))
+                .addGap(0, 22, Short.MAX_VALUE))
         );
 
         pack();
@@ -465,23 +474,18 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
 
     private void addEntregaTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEntregaTrabalhoActionPerformed
         gravarTBTrabalho();
-        recuperaTBTrabalho();
     }//GEN-LAST:event_addEntregaTrabalhoActionPerformed
 
     private void removeTrabalhoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeTrabalhoActionPerformed
-        linhaTabela = tbEntregaTrabalho.getSelectedRow();
-        removerTrabalho(linhaTabela);
+        removeTBTrabalho();
     }//GEN-LAST:event_removeTrabalhoActionPerformed
 
     private void addReuniaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addReuniaoActionPerformed
-        dataReuniao = dtReuniao.getText().toString();
-        descricaoReuniao = txtDescReuniao.getText().toString();
-        tableReuniao(descricaoReuniao, dataReuniao);
+        gravarTBReuniao();
     }//GEN-LAST:event_addReuniaoActionPerformed
 
     private void removeReuniaoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeReuniaoActionPerformed
-        linhaTabela = tbReuniao.getSelectedRow();
-        removerReuniao(linhaTabela);
+        removeTBReuniao();
     }//GEN-LAST:event_removeReuniaoActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -493,16 +497,11 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void addEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEventoActionPerformed
-        evento = txtEvento.getText().toString();
-        diaEvento = txtData.getText().toString();
-        horaEvento = horas.getValue().toString();
-        minutoEvento = minutos.getValue().toString();
-        tbEvento(evento, diaEvento, horaEvento+":"+minutoEvento);
+        gravarTBEvento();
     }//GEN-LAST:event_addEventoActionPerformed
 
     private void rmvEventoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rmvEventoActionPerformed
-        linhaTabela = tbEventos.getSelectedRow();
-        removerEvento(linhaTabela);
+        removeTBEvento();
     }//GEN-LAST:event_rmvEventoActionPerformed
 
     public void tbEvento(String descricao, String dia, String hora)
@@ -518,6 +517,36 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
         modelo.removeRow(linha);
         linhas3--;
+    }
+    
+    public void gravarTBEvento()
+    {
+        evento = txtEvento.getText().toString();
+        diaEvento = txtData.getText().toString();
+        horaEvento = horas.getValue().toString();
+        minutoEvento = minutos.getValue().toString();
+        tbEvento(evento, diaEvento, horaEvento+":"+minutoEvento);
+        Eventos even = new Eventos(descricaoTrabalho, diaEvento, horaEvento+":"+minutoEvento);
+        EventosControl.save(even);
+    }
+    
+    public void recuperaTBEvento()
+    {
+        Eventos even = EventosControl.load();
+        DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
+        modelo.addRow(new Object[]{even.getDecricao(),even.getDia(),even.getHora()});
+        
+    }
+    
+    public void removeTBEvento()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbEventos.getModel();
+        linhaTabela = tbEventos.getSelectedRow();       
+        evento = modelo.getValueAt(linhaTabela, 0).toString();
+        diaEvento = modelo.getValueAt(linhaTabela, 1).toString();
+        hEvento = modelo.getValueAt(linhaTabela, 2).toString();
+        EventosControl.remove(descricaoTrabalho, dataTrabalho, hEvento);
+        removerEvento(linhaTabela);
     }
     
     public void tbTrabalho(String descricao, String dia) {
@@ -547,8 +576,19 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
     public void recuperaTBTrabalho()
     {
         Trabalhos trab = TrabalhosControl.load();
-        System.out.println("Descricao -> "+trab.getDecricao());
-        System.out.println("Data -> "+trab.getDia());
+        DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
+        modelo.addRow(new Object[]{trab.getDecricao(),trab.getDia()});
+        
+    }
+    
+    public void removeTBTrabalho()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbEntregaTrabalho.getModel();
+        linhaTabela = tbEntregaTrabalho.getSelectedRow();       
+        descricaoTrabalho = modelo.getValueAt(linhaTabela, 0).toString();
+        dataTrabalho = modelo.getValueAt(linhaTabela, 1).toString();
+        TrabalhosControl.remove(descricaoTrabalho, dataTrabalho);
+        removerTrabalho(linhaTabela);
     }
     
     public void tableReuniao(String descricao, String dia) {
@@ -563,6 +603,33 @@ public class GerenciamentoAtividadesAcademicas extends javax.swing.JInternalFram
         DefaultTableModel modelo = (DefaultTableModel) tbReuniao.getModel();
         modelo.removeRow(linha);
         linhas2--;
+    }
+    
+    public void gravarTBReuniao()
+    {
+        dataReuniao = dtReuniao.getText().toString();
+        descricaoReuniao = txtDescReuniao.getText().toString();
+        System.out.println("DescTrabalho "+descricaoReuniao);
+        tableReuniao(descricaoReuniao, dataReuniao);
+        Reunioes reun = new Reunioes(descricaoReuniao, dataReuniao);
+        ReunioesControl.save(reun);
+    }
+    
+    public void recuperaTBReuniao()
+    {
+        Reunioes reun = ReunioesControl.load();
+        DefaultTableModel modelo = (DefaultTableModel) tbReuniao.getModel();
+        modelo.addRow(new Object[]{reun.getDecricao(),reun.getDia()});        
+    }
+    
+    public void removeTBReuniao()
+    {
+        DefaultTableModel modelo = (DefaultTableModel) tbReuniao.getModel();
+        linhaTabela = tbReuniao.getSelectedRow();       
+        descricaoReuniao = modelo.getValueAt(linhaTabela, 0).toString();
+        dataReuniao = modelo.getValueAt(linhaTabela, 1).toString();
+        ReunioesControl.remove(descricaoReuniao, dataReuniao);
+        removerReuniao(linhaTabela);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
