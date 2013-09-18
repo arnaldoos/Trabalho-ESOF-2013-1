@@ -445,7 +445,7 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
             System.out.println("Dia "+dia);            
             horaAula = tabelaDiaAula.getValueAt(linhasTabela-1, 1).toString();
             System.out.println("Hora "+horaAula);
-            ds = new Disciplina(disciplinaID, disciplina, pf, dia,horaAula);
+            ds = new Disciplina(disciplinaID, disciplina, pf, "");
             System.out.println("LinhasTabela "+linhasTabela);
             linhasTabela--;
         }

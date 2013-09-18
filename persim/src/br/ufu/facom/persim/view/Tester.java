@@ -2,13 +2,17 @@ package br.ufu.facom.persim.view;
 
 import br.ufu.facom.persim.control.ControleDisciplinaControl;
 import br.ufu.facom.persim.control.DisciplinaControl;
+import br.ufu.facom.persim.dao.ConnectionSQLiteDAO;
 import br.ufu.facom.persim.model.ControleDisciplina;
 import br.ufu.facom.persim.model.Disciplina;
 import br.ufu.facom.persim.model.Professor;
 import java.io.FileNotFoundException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /*
  * Classe temporaria para testes e simulacoes
@@ -16,12 +20,22 @@ import java.util.List;
 public class Tester {
     
     public static void main (String[] args) throws FileNotFoundException{
+        testeBancoFuncionando();
        // testeGravaDisciplina();
        // testeLoadDisciplina();
-        
         //testeControleNotasFaltas();
     }
     
+    public static void testeBancoFuncionando(){
+        ConnectionSQLiteDAO conn;
+        try {
+            conn = new ConnectionSQLiteDAO();
+            conn.closeDB();
+            System.out.println("Funcionando!!");
+        } catch (ClassNotFoundException | SQLException | FileNotFoundException ex) {
+            System.out.println("Pobrema: "+ex.getMessage());
+        }
+    }
     public static void testeGravaDisciplina(){
         System.out.println("------------GRAVANDO---------------");
         Professor pf = new Professor("Maia", "lala@lala", "1b90");

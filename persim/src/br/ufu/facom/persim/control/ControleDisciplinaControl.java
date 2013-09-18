@@ -1,7 +1,3 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufu.facom.persim.control;
 
 import br.ufu.facom.persim.dao.ConnectionSQLiteDAO;
@@ -10,10 +6,6 @@ import br.ufu.facom.persim.model.ControleDisciplina;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
 
-/**
- *
- * @author Jakeline Bissani
- */
 public class ControleDisciplinaControl {
     
     public static void save (ControleDisciplina disc) throws FileNotFoundException{

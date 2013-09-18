@@ -41,3 +41,9 @@ CREATE TABLE controle_disciplina (
         
 );
 
+CREATE TABLE sticky_notes (
+	stk_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	stk_text CHAR(120),
+	stk_xpos INTEGER,
+	stk_ypos INTEGER
+);

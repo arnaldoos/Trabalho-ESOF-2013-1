@@ -1,18 +1,44 @@
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.control.StickyNotesControl;
+import br.ufu.facom.persim.model.StickyNote;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
+import java.util.List;
+import javax.swing.JDesktopPane;
+import javax.swing.JTextArea;
 
-public class CriarStickyNotesIFrame extends javax.swing.JInternalFrame {
+public class CadastroStickyNotesIFrame extends javax.swing.JInternalFrame {
 
+   private List<StickyNotesIFrame> list;
    
-    public CriarStickyNotesIFrame() {
+    public CadastroStickyNotesIFrame(List<StickyNotesIFrame> snotes) {
         super("Add Sticky Note");
         initComponents();
+        this.list = snotes;
         this.setVisible(true);
-        this.setLocation(490, 2);
+        this.setLocation(490, 200);
+        this.setClosable(true);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         
-        this.lembreteJText.setBackground(new Color(0,0,0,0));
-        //this.lembreteJText.setBorder();
+        this.lembreteJText.setBackground(new Color(255,255,200));
+        
+        this.lembreteJText.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                if (getTextArea().getText().length() > 120){
+                    String text = getTextArea().getText();
+                    getTextArea().setText(text.substring(0, 120));
+                }
+            }
+            @Override
+            public void keyPressed(KeyEvent e) {}
+            @Override
+            public void keyReleased(KeyEvent e) {}
+        });
+       
     }
     
     @SuppressWarnings("unchecked")
@@ -32,11 +58,18 @@ public class CriarStickyNotesIFrame extends javax.swing.JInternalFrame {
         addButton.setText("Adicionar");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addButtonActionPerformed(evt);
+                addStickyToParentDesktopPane();
             }
         });
 
         cancelButton.setText("Cancelar");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                close();
+            }
+        });
 
         jLabel1.setText("Faça sua anotação aqui");
 
@@ -75,6 +108,22 @@ public class CriarStickyNotesIFrame extends javax.swing.JInternalFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
+    private JTextArea getTextArea(){
+        return this.lembreteJText;
+    }
+    private void addStickyToParentDesktopPane(){
+        StickyNote stk = new StickyNote(this.lembreteJText.getText(), 400, 0);
+        StickyNotesIFrame sticky = new StickyNotesIFrame(stk);
+        ((JDesktopPane) this.getParent()).add(sticky);
+        this.lembreteJText.setText("");
+        StickyNotesControl.save(stk);
+        this.list.add(sticky);
+    }
+    
+    private void close(){
+        this.dispose();
+    }
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // TODO add your handling code here:

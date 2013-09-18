@@ -1,7 +1,10 @@
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.control.StickyNotesControl;
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.Iterator;
+import java.util.List;
 //import javax.swing.JOptionPane;
 
 public final class MainWindowFrame extends javax.swing.JFrame {
@@ -10,7 +13,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.setMainWindowConfigurations();
         this.setDesktopConfigurations();
         this.visibilityConfigurations();
-        Notifications.showMessage("Testando!", "Testando 123 Hello World!!", Notifications.ATENTION_ICON);
+        //Notifications.showMessage("Testando!", "Testando 123 Hello World!!", Notifications.ATENTION_ICON);
     }
     
     private void setMainWindowConfigurations () {
@@ -23,6 +26,11 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     }
     
     private void setDesktopConfigurations () {
+        this.stickyNotes = StickyNotesControl.buildStickyNotesIFrames();
+        for (Iterator<StickyNotesIFrame> it = stickyNotes.iterator(); it.hasNext();) {
+            StickyNotesIFrame stickyNotesIFrame = it.next();
+            this.desktopPane.add(stickyNotesIFrame);
+        }
         this.calframe = new CalendarIFrame();
         this.desktopPane.add(this.calframe);
     }
@@ -47,9 +55,9 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         novoPeriodoMenuItem = new javax.swing.JMenuItem();
         periodosAnterioresMenu = new javax.swing.JMenu();
         periodosVigentesMenu = new javax.swing.JMenu();
-        janelasMenu = new javax.swing.JMenu();
-        jMenuItem1 = new javax.swing.JMenuItem();
-        cadastroDisciplina = new javax.swing.JMenuItem();
+        janelasMenuItem = new javax.swing.JMenu();
+        eventoMenu = new javax.swing.JMenuItem();
+        lembreteMenuItem = new javax.swing.JMenuItem();
 
         jMenuItem2.setText("jMenuItem2");
 
@@ -68,25 +76,25 @@ public final class MainWindowFrame extends javax.swing.JFrame {
 
         menuBar.add(periodoMenu);
 
-        janelasMenu.setText("Janelas");
+        janelasMenuItem.setText("Novo");
 
-        jMenuItem1.setText("Cadastrar Evento");
-        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+        eventoMenu.setText("Evento");
+        eventoMenu.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem1ActionPerformed(evt);
+                eventoMenuActionPerformed(evt);
             }
         });
-        janelasMenu.add(jMenuItem1);
+        janelasMenuItem.add(eventoMenu);
 
-        cadastroDisciplina.setText("Cadastrar Disciplina");
-        cadastroDisciplina.addActionListener(new java.awt.event.ActionListener() {
+        lembreteMenuItem.setText("Lembrete");
+        lembreteMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cadastroDisciplinaActionPerformed(evt);
+                lembreteMenuItemActionPerformed(evt);
             }
         });
-        janelasMenu.add(cadastroDisciplina);
+        janelasMenuItem.add(lembreteMenuItem);
 
-        menuBar.add(janelasMenu);
+        menuBar.add(janelasMenuItem);
 
         setJMenuBar(menuBar);
 
@@ -110,19 +118,17 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
-        this.eventframe = new CadastroEventoIFrame();//instancia a classe iFrmCliente  
-        desktopPane.add(this.eventframe);//adiciona o cliente no seu JdesktopPane  
-        this.eventframe.setLocation(400, 0);//colocar a tela iFrmCliente na posiÃ§Ã£o(0,0)  
-        this.eventframe.setVisible(true);//deixa visÃ­vel 
-    }//GEN-LAST:event_jMenuItem1ActionPerformed
+    private void eventoMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eventoMenuActionPerformed
+        this.eventFrame = new CadastroEventoIFrame();//instancia a classe iFrmCliente  
+        desktopPane.add(this.eventFrame);//adiciona o cliente no seu JdesktopPane  
+        this.eventFrame.setLocation(400, 0);//colocar a tela iFrmCliente na posiÃ§Ã£o(0,0)  
+        this.eventFrame.setVisible(true);//deixa visÃ­vel 
+    }//GEN-LAST:event_eventoMenuActionPerformed
 
-    private void cadastroDisciplinaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroDisciplinaActionPerformed
-        this.eventCadastroDisciplina = new CadastroDisciplina();
-        desktopPane.add(this.eventCadastroDisciplina);
-        this.eventCadastroDisciplina.setLocation(600,0);
-        this.eventCadastroDisciplina.setVisible(true);
-    }//GEN-LAST:event_cadastroDisciplinaActionPerformed
+    private void lembreteMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_lembreteMenuItemActionPerformed
+        this.stickyFrame = new CadastroStickyNotesIFrame(this.stickyNotes);
+        desktopPane.add(this.stickyFrame);
+    }//GEN-LAST:event_lembreteMenuItemActionPerformed
 
     /**
      * @param args the command line arguments
@@ -161,14 +167,16 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     }
     //Atributos declarados
     private CalendarIFrame calframe;
-    private CadastroEventoIFrame eventframe;
+    private CadastroEventoIFrame eventFrame;
     private CadastroDisciplina eventCadastroDisciplina;
+    private CadastroStickyNotesIFrame stickyFrame;
+    private List<StickyNotesIFrame> stickyNotes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem cadastroDisciplina;
     private javax.swing.JDesktopPane desktopPane;
-    private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem eventoMenu;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenu janelasMenu;
+    private javax.swing.JMenu janelasMenuItem;
+    private javax.swing.JMenuItem lembreteMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem novoPeriodoMenuItem;
     private javax.swing.JMenu periodoMenu;
