@@ -19,7 +19,6 @@ public class LimitDigitsListener implements KeyListener{
     
     @Override
     public void keyTyped(KeyEvent e) {        
-        System.out.println(textComponent.getText().length());
         if (textComponent.getText().length() > maximumDigits){
             String text = textComponent.getText();
             textComponent.setText(text.substring(0,maximumDigits));   
