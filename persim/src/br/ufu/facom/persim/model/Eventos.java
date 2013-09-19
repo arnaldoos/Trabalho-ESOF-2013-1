@@ -1,13 +1,13 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+* To change this template, choose Tools | Templates
+* and open the template in the editor.
+*/
 package br.ufu.facom.persim.model;
 
 /**
- *
- * @author Ricardo & Ludma
- */
+*
+* @author Ricardo & Ludma
+*/
 public class Eventos {
     private String descricao;
     private String dia;

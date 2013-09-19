@@ -2,13 +2,19 @@ package br.ufu.facom.persim.view;
 
 import br.ufu.facom.persim.control.ControleDisciplinaControl;
 import br.ufu.facom.persim.control.DisciplinaControl;
+import br.ufu.facom.persim.control.EventoControl;
 import br.ufu.facom.persim.dao.ConnectionSQLiteDAO;
 import br.ufu.facom.persim.model.ControleDisciplina;
 import br.ufu.facom.persim.model.Disciplina;
+import br.ufu.facom.persim.model.Evento;
 import br.ufu.facom.persim.model.Professor;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
@@ -20,10 +26,28 @@ import java.util.logging.Logger;
 public class Tester {
     
     public static void main (String[] args) throws FileNotFoundException{
-        testeBancoFuncionando();
+        testeGravaEvento();
+        //testeBancoFuncionando();
        // testeGravaDisciplina();
        // testeLoadDisciplina();
         //testeControleNotasFaltas();
+    }
+    
+    public static void testeGravaEvento(){
+        String data = "04-02-1990 19:20:20";
+        String data2 = "04-04-1990 12:20:20";
+        
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        try {
+            Date d = sdf.parse(data);
+            Date d2 = sdf.parse(data2);
+            Evento evt = new Evento("lala", new Timestamp(d.getTime()), new Timestamp(d2.getTime()), "lsls");
+            EventoControl.save(evt);
+            System.out.println(evt.getDataHora());
+        } catch (ParseException ex) {
+            Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }
     
     public static void testeBancoFuncionando(){

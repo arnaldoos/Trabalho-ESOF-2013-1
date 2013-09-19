@@ -24,9 +24,10 @@ CREATE TABLE bibliografia (
 );
 
 CREATE TABLE evento (
-	event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	event_datahora DATETIME PRIMARY KEY,
+	event_duracao DATETIME,
 	event_local CHAR(50),
-	event_datahora DATETIME,
+	event_descricao CHAR(200),
 	fk_disc_id CHAR(20),
 	FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id)
 		ON DELETE CASCADE

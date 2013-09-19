@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.util.Locale;
 import java.util.TimeZone;
 import javax.swing.JInternalFrame;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 /*
  *  IFrame do calendario sobre o desktop
@@ -17,8 +19,18 @@ import javax.swing.JInternalFrame;
 public class CalendarIFrame extends JInternalFrame{
     
     public CalendarIFrame () {
-        this.createCalendar();
         this.setIFrameConfigurations();
+        this.createCalendar();
+        this.createEventoDisplay();
+    }
+    
+    private void setIFrameConfigurations() {
+        this.setTitle("Calendário");
+        this.setIconifiable(true);
+        this.getContentPane().setLayout(null);
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.setBounds(0, 0, 400, 350);
+        this.setVisible(true);
     }
     
     private void createCalendar() {
@@ -38,16 +50,21 @@ public class CalendarIFrame extends JInternalFrame{
         cellPanelBackgroundPainter.setHeadingBackgroundEndGradientColor(new Color(0x46, 0x82, 0xB4));
         
         this.calendar.setCalendarCellRenderer(new CalendarRenderer());
-        this.add(calendar);
+        this.getContentPane().add(this.calendar);
     }
     
-    private void setIFrameConfigurations() {
-        this.setTitle("Calendário");
-        this.setBounds(this.calendar.getBounds());
-        this.setIconifiable(true);
-        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setVisible(true);
+    private void createEventoDisplay() {
+        this.textArea = new JTextArea();
+        this.scrollText = new JScrollPane(this.textArea);
+        this.scrollText.setBounds(5,253,380,65);
+        this.textArea.setWrapStyleWord(true);
+        this.textArea.setBackground(new Color(176,196,222));
+        //this.scrollText.add(this.textArea);
+        this.textArea.setBounds(0,0, 380, 65);
+        this.getContentPane().add(this.scrollText);
     }
     
     private JSCCalendar calendar;
+    private JTextArea textArea;
+    private JScrollPane scrollText;
 }

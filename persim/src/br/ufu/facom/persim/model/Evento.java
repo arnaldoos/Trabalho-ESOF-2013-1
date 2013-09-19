@@ -1,17 +1,21 @@
 package br.ufu.facom.persim.model;
 
-import java.sql.Date;
+import java.sql.Timestamp;
 
 public class Evento {
     
     private String local;
-    private Date dataHora;
+    private Timestamp dataHora;
+    private Timestamp duracao;
+    private String descricao;
         
     public Evento () {}
     
-    public Evento (String local, Date dataHora) {
+    public Evento (String local, Timestamp dataHora, Timestamp duracao, String descricao) {
         this.local = local;
         this.dataHora = dataHora;
+        this.duracao = duracao;
+        this.descricao = descricao;
     }
 
     public String getLocal() {
@@ -22,12 +26,28 @@ public class Evento {
         this.local = local;
     }
 
-    public Date getDataHora() {
+    public Timestamp getDataHora() {
         return dataHora;
     }
 
-    public void setDataHora(Date dataHora) {
+    public void setDataHora(Timestamp dataHora) {
         this.dataHora = dataHora;
     }
-        
+
+    public Timestamp getDuracao() {
+        return duracao;
+    }
+
+    public void setDuracao(Timestamp duracao) {
+        this.duracao = duracao;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+    
 }

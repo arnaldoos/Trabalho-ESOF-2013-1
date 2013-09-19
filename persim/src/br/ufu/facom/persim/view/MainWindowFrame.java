@@ -35,10 +35,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.desktopPane.add(this.calframe);
     }
                 
-    private void visibilityConfigurations() {
-        this.periodosAnterioresMenu.setEnabled(false);
-        this.periodosVigentesMenu.setEnabled(false);
-        
+    private void visibilityConfigurations() {        
         /*int answer = JOptionPane.showConfirmDialog(this, "Não há períodos cadastrados! Antes de começar "
                 + "você deve cadastrar um novo período", 
                 "Cadastre um novo período", JOptionPane.INFORMATION_MESSAGE , 
@@ -53,9 +50,9 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         menuBar = new javax.swing.JMenuBar();
         periodoMenu = new javax.swing.JMenu();
         novoPeriodoMenuItem = new javax.swing.JMenuItem();
-        periodosAnterioresMenu = new javax.swing.JMenu();
-        periodosVigentesMenu = new javax.swing.JMenu();
-        janelasMenuItem = new javax.swing.JMenu();
+        jMenuItem1 = new javax.swing.JMenuItem();
+        disciplinaMenu = new javax.swing.JMenuItem();
+        criarMenu = new javax.swing.JMenu();
         eventoMenu = new javax.swing.JMenuItem();
         lembreteMenuItem = new javax.swing.JMenuItem();
 
@@ -68,15 +65,20 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         novoPeriodoMenuItem.setText("Novo Periodo");
         periodoMenu.add(novoPeriodoMenuItem);
 
-        periodosAnterioresMenu.setText("Periodos Anteriores");
-        periodoMenu.add(periodosAnterioresMenu);
+        jMenuItem1.setText("Estatísticas");
+        periodoMenu.add(jMenuItem1);
 
-        periodosVigentesMenu.setText("Periodos Vigentes");
-        periodoMenu.add(periodosVigentesMenu);
+        disciplinaMenu.setText("Disciplina");
+        disciplinaMenu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                disciplinaMenuActionPerformed(evt);
+            }
+        });
+        periodoMenu.add(disciplinaMenu);
 
         menuBar.add(periodoMenu);
 
-        janelasMenuItem.setText("Novo");
+        criarMenu.setText("Criar");
 
         eventoMenu.setText("Evento");
         eventoMenu.addActionListener(new java.awt.event.ActionListener() {
@@ -84,7 +86,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
                 eventoMenuActionPerformed(evt);
             }
         });
-        janelasMenuItem.add(eventoMenu);
+        criarMenu.add(eventoMenu);
 
         lembreteMenuItem.setText("Lembrete");
         lembreteMenuItem.addActionListener(new java.awt.event.ActionListener() {
@@ -92,9 +94,9 @@ public final class MainWindowFrame extends javax.swing.JFrame {
                 lembreteMenuItemActionPerformed(evt);
             }
         });
-        janelasMenuItem.add(lembreteMenuItem);
+        criarMenu.add(lembreteMenuItem);
 
-        menuBar.add(janelasMenuItem);
+        menuBar.add(criarMenu);
 
         setJMenuBar(menuBar);
 
@@ -129,6 +131,12 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.stickyFrame = new CadastroStickyNotesIFrame(this.stickyNotes);
         desktopPane.add(this.stickyFrame);
     }//GEN-LAST:event_lembreteMenuItemActionPerformed
+
+    private void disciplinaMenuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_disciplinaMenuActionPerformed
+        this.cadDisc = new CadastroDisciplina();
+        this.desktopPane.add(this.cadDisc);
+        this.cadDisc.setVisible(true);
+    }//GEN-LAST:event_disciplinaMenuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -167,20 +175,21 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     }
     //Atributos declarados
     private CalendarIFrame calframe;
+    private CadastroDisciplina cadDisc;
     private CadastroEventoIFrame eventFrame;
     private CadastroDisciplina eventCadastroDisciplina;
     private CadastroStickyNotesIFrame stickyFrame;
     private List<StickyNotesIFrame> stickyNotes;
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenu criarMenu;
     private javax.swing.JDesktopPane desktopPane;
+    private javax.swing.JMenuItem disciplinaMenu;
     private javax.swing.JMenuItem eventoMenu;
+    private javax.swing.JMenuItem jMenuItem1;
     private javax.swing.JMenuItem jMenuItem2;
-    private javax.swing.JMenu janelasMenuItem;
     private javax.swing.JMenuItem lembreteMenuItem;
     private javax.swing.JMenuBar menuBar;
     private javax.swing.JMenuItem novoPeriodoMenuItem;
     private javax.swing.JMenu periodoMenu;
-    private javax.swing.JMenu periodosAnterioresMenu;
-    private javax.swing.JMenu periodosVigentesMenu;
     // End of variables declaration//GEN-END:variables
 }

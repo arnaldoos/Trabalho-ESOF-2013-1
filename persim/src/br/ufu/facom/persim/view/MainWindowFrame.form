@@ -19,21 +19,24 @@
                 <Property name="text" type="java.lang.String" value="Novo Periodo"/>
               </Properties>
             </MenuItem>
-            <Menu class="javax.swing.JMenu" name="periodosAnterioresMenu">
+            <MenuItem class="javax.swing.JMenuItem" name="jMenuItem1">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Periodos Anteriores"/>
+                <Property name="text" type="java.lang.String" value="Estat&#xed;sticas"/>
               </Properties>
-            </Menu>
-            <Menu class="javax.swing.JMenu" name="periodosVigentesMenu">
+            </MenuItem>
+            <MenuItem class="javax.swing.JMenuItem" name="disciplinaMenu">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Periodos Vigentes"/>
+                <Property name="text" type="java.lang.String" value="Disciplina"/>
               </Properties>
-            </Menu>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="disciplinaMenuActionPerformed"/>
+              </Events>
+            </MenuItem>
           </SubComponents>
         </Menu>
-        <Menu class="javax.swing.JMenu" name="janelasMenuItem">
+        <Menu class="javax.swing.JMenu" name="criarMenu">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Novo"/>
+            <Property name="text" type="java.lang.String" value="Criar"/>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="eventoMenu">
