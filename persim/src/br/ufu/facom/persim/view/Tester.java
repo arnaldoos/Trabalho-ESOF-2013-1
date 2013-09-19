@@ -34,16 +34,18 @@ public class Tester {
     }
     
     public static void testeGravaEvento(){
-        String data = "04-02-1990 19:20:20";
-        String data2 = "04-04-1990 12:20:20";
+        String data = "19:20:00";
+        String data2 = "13:20:00";
         
-        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy hh:mm:ss");
+        SimpleDateFormat sdf = new SimpleDateFormat("hh:mm:ss");
         try {
             Date d = sdf.parse(data);
             Date d2 = sdf.parse(data2);
             Evento evt = new Evento("lala", new Timestamp(d.getTime()), new Timestamp(d2.getTime()), "lsls");
-            EventoControl.save(evt);
-            System.out.println(evt.getDataHora());
+            //EventoControl.save(evt);
+            String[] g = evt.getDataHora().toString().split("[^0-9]");
+            System.out.println(g[0]+" "+g[1]+" "+g[2]+" "+g[3]+" "+g[4]+" "+g[5]);
+            System.out.println(evt);
         } catch (ParseException ex) {
             Logger.getLogger(Tester.class.getName()).log(Level.SEVERE, null, ex);
         }

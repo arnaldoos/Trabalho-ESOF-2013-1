@@ -50,4 +50,25 @@ public class Evento {
         this.descricao = descricao;
     }
     
+    @Override
+    public String toString(){
+        String str = "";
+        
+        if (this.getDataHora() != null){
+            String[] d = this.getDataHora().toString().split("[^0-9]");        
+            str = "Marcado para as: "+d[3]+":"+d[4]+"\n";
+        }
+        if (this.getDuracao() != null){
+            String[] e = this.getDuracao().toString().split("[^0-9]");
+            str += "Duração: "+e[3]+":"+e[4]+"\n";
+        }
+        if (this.getLocal() != null){
+            str += "Local: "+this.getLocal()+"\n";
+        }
+        if (this.getDescricao() != null){
+            str += "Sobre: "+this.getDescricao();
+        }
+        
+        return str;
+    }
 }

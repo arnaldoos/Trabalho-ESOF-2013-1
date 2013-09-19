@@ -2,7 +2,10 @@ package br.ufu.facom.persim.dao;
 
 import br.ufu.facom.persim.model.Evento;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EventoDAO {
     
@@ -17,5 +20,26 @@ public class EventoDAO {
         ps.setString(3, evento.getLocal());
         ps.setString(4, evento.getDescricao());
         ps.execute();        
+    }
+    
+    public List<Evento> load (ConnectionSQLiteDAO conn) throws SQLException {
+        String query = "SELECT * FROM evento;";
+        
+        PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+        
+        return build(rs);
+    }
+    
+    private List<Evento> build (ResultSet rs) throws SQLException{
+        List<Evento> eventos = new ArrayList<>();
+        while(rs.next()){
+            eventos.add(new Evento(rs.getString("event_local"),
+                    rs.getTimestamp("event_datahora"),
+                    rs.getTimestamp("event_duracao"),
+                    rs.getString("event_descricao")
+            ));
+        }
+        return eventos;
     }
 }

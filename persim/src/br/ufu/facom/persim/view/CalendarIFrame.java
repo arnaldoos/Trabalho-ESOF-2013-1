@@ -20,8 +20,8 @@ public class CalendarIFrame extends JInternalFrame{
     
     public CalendarIFrame () {
         this.setIFrameConfigurations();
-        this.createCalendar();
         this.createEventoDisplay();
+        this.createCalendar();
     }
     
     private void setIFrameConfigurations() {
@@ -29,8 +29,20 @@ public class CalendarIFrame extends JInternalFrame{
         this.setIconifiable(true);
         this.getContentPane().setLayout(null);
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
-        this.setBounds(0, 0, 400, 350);
+        this.setBounds(0, 0, 400, 430);
         this.setVisible(true);
+    }
+    
+    private void createEventoDisplay() {
+        this.textArea = new JTextArea();
+        this.scrollText = new JScrollPane(this.textArea);
+        this.scrollText.setBounds(5,253,380,135);
+        this.textArea.setWrapStyleWord(true);
+        this.textArea.setBackground(new Color(176,196,222));
+        //this.scrollText.add(this.textArea);
+        this.textArea.setBounds(0,0, 380, 135);
+        this.textArea.setEditable(false);
+        this.getContentPane().add(this.scrollText);
     }
     
     private void createCalendar() {
@@ -49,19 +61,8 @@ public class CalendarIFrame extends JInternalFrame{
         cellPanelBackgroundPainter.setHeadingBackgroundStartGradientColor(new Color(0xB0, 0xE0, 0xE6));
         cellPanelBackgroundPainter.setHeadingBackgroundEndGradientColor(new Color(0x46, 0x82, 0xB4));
         
-        this.calendar.setCalendarCellRenderer(new CalendarRenderer());
+        this.calendar.setCalendarCellRenderer(new CalendarRenderer(this.textArea));
         this.getContentPane().add(this.calendar);
-    }
-    
-    private void createEventoDisplay() {
-        this.textArea = new JTextArea();
-        this.scrollText = new JScrollPane(this.textArea);
-        this.scrollText.setBounds(5,253,380,65);
-        this.textArea.setWrapStyleWord(true);
-        this.textArea.setBackground(new Color(176,196,222));
-        //this.scrollText.add(this.textArea);
-        this.textArea.setBounds(0,0, 380, 65);
-        this.getContentPane().add(this.scrollText);
     }
     
     private JSCCalendar calendar;
