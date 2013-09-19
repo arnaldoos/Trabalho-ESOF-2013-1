@@ -10,17 +10,20 @@ public class Disciplina {
     private String ID;
     private String nome;
     private Professor professor;
-    private String adicionais;
+    //private String adicionais;
     private List<String> bibliografia;
-    private List<Evento> eventos;
+    private List<EventoAvaliativo> eventos;
+    private List<Aula> aulas;
+    private String sala; 
     
     public Disciplina () {}
     
-    public Disciplina (String ID, String nome, Professor professor, String adicionais) {
+    public Disciplina (String ID, String nome, Professor professor, String sala/*, String adicionais*/) {
         this.ID = ID;
         this.nome = nome;
         this.professor = professor;
-        this.adicionais = adicionais;
+        this.sala = sala; 
+        //this.adicionais = adicionais;
     }
     
     public String getID() {
@@ -43,8 +46,18 @@ public class Disciplina {
         return bibliografia;
     }
 
-    public void setBibliografia(List<String> bibliografia) {
-        this.bibliografia = bibliografia;
+    public void setBibliografia(List<String> bibliografias) {
+        this.bibliografia = bibliografias;
+    }
+    
+    public List<Aula> getAulas()
+    {
+        return aulas;       
+    }
+    
+    public void setAulas(List<Aula> aulas)
+    {
+        this.aulas = aulas;
     }
 
     public void setProfessor(Professor professor) {
@@ -55,20 +68,28 @@ public class Disciplina {
         return professor;
     }
     
-    public void setEventos(List<Evento> eventos) {
+    public void setEventos(List<EventoAvaliativo> eventos) {
         this.eventos = eventos;
     }
     
-    public List<Evento> getEventos() {
+    public List<EventoAvaliativo> getEventos() {
         return eventos;
     }
+    
+     public String getSala() {
+        return sala;
+    }
+    
+    public void setSala(String sala) {
+        this.sala = sala;
+    }
 
-    public String getAdicionais() {
+   /* public String getAdicionais() {
         return adicionais;
     }
 
     public void setAdicionais(String adicionais) {
         this.adicionais = adicionais;
-    }
+    }*/
     
 }

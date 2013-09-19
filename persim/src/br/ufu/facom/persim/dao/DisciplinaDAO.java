@@ -24,7 +24,13 @@ public class DisciplinaDAO {
             BibliografiaDAO bibdao = new BibliografiaDAO();
             bibdao.save(disc, conn);
         }
-        ps.setString(4, disc.getAdicionais());
+        if(disc.getAulas() != null && disc.getAulas().isEmpty())
+        {
+            AulaDAO aulaDao = new AulaDAO();
+            aulaDao.save(disc, conn);
+        }
+        //ps.setString(4, disc.getAdicionais());
+        ps.setString (4,disc.getSala());
         ps.execute();
     }
     
@@ -54,7 +60,8 @@ public class DisciplinaDAO {
         ds.setID(rs.getString("disc_id"));
         ds.setNome(rs.getString("disc_nome"));
         ds.setProfessor(profdao.build(rs));
-        ds.setAdicionais(rs.getString("disc_adicionais"));
+        ds.setSala(rs.getString("disc_sala"));
+        //ds.setAdicionais(rs.getString("disc_adicionais"));
         
         return ds;
     }
