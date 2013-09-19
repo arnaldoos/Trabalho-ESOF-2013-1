@@ -25,7 +25,8 @@ public class CadastroStickyNotesIFrame extends javax.swing.JInternalFrame {
         
         this.lembreteJText.setBackground(new Color(255,255,200));
         
-        this.lembreteJText.addKeyListener(new KeyListener() {
+        this.lembreteJText.addKeyListener(new LimitDigitsListener(120, this.lembreteJText));
+        /*this.lembreteJText.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
                 if (getTextArea().getText().length() > 120){
@@ -37,7 +38,7 @@ public class CadastroStickyNotesIFrame extends javax.swing.JInternalFrame {
             public void keyPressed(KeyEvent e) {}
             @Override
             public void keyReleased(KeyEvent e) {}
-        });
+        });*/
        
     }
     
