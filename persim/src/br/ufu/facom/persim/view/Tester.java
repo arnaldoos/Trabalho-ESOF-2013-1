@@ -76,7 +76,7 @@ public class Tester {
         
         System.out.println("prof: "+ds.getProfessor().getNome()+" <- "+
                 ds.getProfessor().getEmail()+" <- "+ds.getProfessor().getSala());
-        System.out.println("ds: "+ds.getID()+" <- "+ds.getNome()+" <- "+ds.getAdicionais());
+        System.out.println("ds: "+ds.getID()+" <- "+ds.getNome()+" <- "/*+ds.getAdicionais()*/);
 
         for (Iterator<String> it = ds.getBibliografia().iterator(); it.hasNext();) {
             String string = it.next();
@@ -90,7 +90,7 @@ public class Tester {
         
         System.out.println("prof: "+ds.getProfessor().getNome()+" <- "+
                 ds.getProfessor().getEmail()+" <- "+ds.getProfessor().getSala());
-        System.out.println("ds: "+ds.getID()+" <- "+ds.getNome()+" <- "+ds.getAdicionais());
+        System.out.println("ds: "+ds.getID()+" <- "+ds.getNome()+" <- "/*+ds.getAdicionais()*/);
 
         for (Iterator<String> it = ds.getBibliografia().iterator(); it.hasNext();) {
             String string = it.next();

@@ -1,7 +1,9 @@
 package br.ufu.facom.persim.control;
 
+import br.ufu.facom.persim.dao.AulaDAO;
 import br.ufu.facom.persim.dao.ConnectionSQLiteDAO;
 import br.ufu.facom.persim.dao.DisciplinaDAO;
+import br.ufu.facom.persim.model.Aula;
 import br.ufu.facom.persim.model.Disciplina;
 import java.io.FileNotFoundException;
 import java.sql.SQLException;
@@ -39,4 +41,6 @@ public class DisciplinaControl {
         }
         return null;
     }
+    
+   
 }

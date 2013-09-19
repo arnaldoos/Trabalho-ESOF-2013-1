@@ -1,13 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.ufu.facom.persim.model;
 
-/**
- *
- * @author Jakeline Bissani
- */
+
 public class ControleDisciplina {
     
     private String disc_id;

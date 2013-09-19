@@ -9,7 +9,6 @@ CREATE TABLE disciplina (
 	disc_nome CHAR(60),
 	fk_prof_nome CHAR(60),
 	disc_sala CHAR(512),
-	disc_horario CHAR(512),
 	FOREIGN KEY (fk_prof_nome) REFERENCES professor(prof_nome)
 		ON DELETE RESTRICT
 		ON UPDATE CASCADE
@@ -47,4 +46,13 @@ CREATE TABLE sticky_notes (
 	stk_text CHAR(120),
 	stk_xpos INTEGER,
 	stk_ypos INTEGER
+);
+
+CREATE TABLE aula (
+	aula_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	fk_disc_id CHAR(20),
+	aula_horario CHAR(10),
+	aula_diasemana CHAR(20),
+	FOREIGN KEY(fk_disc_id) REFERENCES disciplina(disc_id)
+		ON DELETE CASCADE		
 );
