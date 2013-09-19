@@ -38,7 +38,7 @@ public class CalendarIFrame extends JInternalFrame{
         this.scrollText = new JScrollPane(this.textArea);
         this.scrollText.setBounds(5,253,380,135);
         this.textArea.setWrapStyleWord(true);
-        this.textArea.setBackground(new Color(176,196,222));
+        this.textArea.setBackground(new Color(255, 255, 183));
         //this.scrollText.add(this.textArea);
         this.textArea.setBounds(0,0, 380, 135);
         this.textArea.setEditable(false);

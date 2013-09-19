@@ -7,6 +7,7 @@ import com.javaswingcomponents.calendar.cellrenderers.CalendarCellRenderer;
 import com.javaswingcomponents.calendar.cellrenderers.CellRendererComponentParameter;
 import java.awt.Color;
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -21,13 +22,15 @@ import javax.swing.JTextArea;
 
 public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
     
-    private Evento[] eventoMes;
+    private ArrayList<Evento>[] eventoMes;   //Array de listas (mais de um evento por dia)
     private int mesCorrente;
     private JTextArea textArea;
+    private int lengthEventosTotal;
     
     public CalendarRenderer (JTextArea text) {
         this.mesCorrente = 0;
         this.textArea = text;
+        this.lengthEventosTotal = EventoControl.getEventos().size();
     }
     
     @Override
@@ -46,9 +49,11 @@ public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
         //JSCCalendar calendar = parameterObject.getCalendar();
         
         if (isCurrentMonth){
-            if (mes != this.mesCorrente){
+            if ((mes != this.mesCorrente) || 
+                    (this.lengthEventosTotal != 
+                    EventoControl.getEventos().size())){
+                this.lengthEventosTotal = EventoControl.getEventos().size();
                 this.mesCorrente = mes;
-                System.out.println(mes);
                 updateEventosDoMes();
             }            
         }
@@ -70,8 +75,8 @@ public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
         
         if (isSelected) {
             setBorder(BorderFactory.createDashedBorder(Color.BLACK, 3, 2));
-            if ((this.eventoMes[dia-1] != null) && isCurrentMonth){
-                textArea.setText(this.eventoMes[dia-1].toString());
+            if ((!this.eventoMes[dia-1].isEmpty()) && isCurrentMonth){
+                textArea.setText(this.getTextFromEventsOfDay(dia));
             }
             else{
                 textArea.setText("");
@@ -84,7 +89,7 @@ public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
             setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
         }
         
-        if ((this.eventoMes[dia-1] != null) && isCurrentMonth){
+        if ((!this.eventoMes[dia-1].isEmpty()) && isCurrentMonth){
             setBackground(Color.red);
             setOpaque(true);
         }
@@ -109,8 +114,12 @@ public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
     }
     
     private void updateEventosDoMes () {
-        this.eventoMes = new Evento[31];
         
+        this.eventoMes = (ArrayList<Evento>[]) new ArrayList[31];
+        
+        for (int i = 0; i < 31; i++){
+            this.eventoMes[i] = new ArrayList<>();
+        }
         List<Evento> eventos = EventoControl.getEventos();
         for (Iterator<Evento> it = eventos.iterator(); it.hasNext();) {
             Evento evento = it.next();
@@ -120,8 +129,20 @@ public class CalendarRenderer extends JLabel implements CalendarCellRenderer {
             if (mes == this.mesCorrente)
             {
                 int day = Integer.parseInt(time[2]);
-                this.eventoMes[day-1] = evento;
+                this.eventoMes[day-1].add(evento);
             }
         }
+    }
+    
+    private String getTextFromEventsOfDay(int day){
+        String str = "";
+        int i = 0;
+        for (Iterator it = this.eventoMes[day-1].iterator(); it.hasNext();) {
+            i++;
+            Evento evento = (Evento) it.next();
+            str += "--------------EVENTO "+i+"--------------\n";
+            str += evento.toString() + "\n\n";
+        }
+        return str;
     }
 }

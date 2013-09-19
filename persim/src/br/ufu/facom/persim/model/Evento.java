@@ -4,28 +4,18 @@ import java.sql.Timestamp;
 
 public class Evento {
     
-    private String local;
     private Timestamp dataHora;
     private Timestamp duracao;
     private String descricao;
         
     public Evento () {}
     
-    public Evento (String local, Timestamp dataHora, Timestamp duracao, String descricao) {
-        this.local = local;
+    public Evento (Timestamp dataHora, Timestamp duracao, String descricao) {
         this.dataHora = dataHora;
         this.duracao = duracao;
         this.descricao = descricao;
     }
-
-    public String getLocal() {
-        return local;
-    }
-
-    public void setLocal(String local) {
-        this.local = local;
-    }
-
+    
     public Timestamp getDataHora() {
         return dataHora;
     }
@@ -56,14 +46,11 @@ public class Evento {
         
         if (this.getDataHora() != null){
             String[] d = this.getDataHora().toString().split("[^0-9]");        
-            str = "Marcado para as: "+d[3]+":"+d[4]+"\n";
+            str = "Marcado para as: "+d[3]+" horas e "+d[4]+" minutos.\n";
         }
         if (this.getDuracao() != null){
             String[] e = this.getDuracao().toString().split("[^0-9]");
-            str += "Duração: "+e[3]+":"+e[4]+"\n";
-        }
-        if (this.getLocal() != null){
-            str += "Local: "+this.getLocal()+"\n";
+            str += "Duração: "+e[3]+" horas e "+e[4]+" minutos.\n";
         }
         if (this.getDescricao() != null){
             str += "Sobre: "+this.getDescricao();

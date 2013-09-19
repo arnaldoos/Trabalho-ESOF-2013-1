@@ -41,8 +41,8 @@ public class Tester {
         try {
             Date d = sdf.parse(data);
             Date d2 = sdf.parse(data2);
-            Evento evt = new Evento("lala", new Timestamp(d.getTime()), new Timestamp(d2.getTime()), "lsls");
-            //EventoControl.save(evt);
+            Evento evt = new Evento(new Timestamp(d.getTime()), new Timestamp(d2.getTime()), "lsls");
+            EventoControl.save(evt);
             String[] g = evt.getDataHora().toString().split("[^0-9]");
             System.out.println(g[0]+" "+g[1]+" "+g[2]+" "+g[3]+" "+g[4]+" "+g[5]);
             System.out.println(evt);

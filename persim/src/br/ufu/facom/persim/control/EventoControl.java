@@ -34,7 +34,7 @@ public class EventoControl {
             EventoDAO dao = new EventoDAO();
             dao.save(evento, conn);
             conn.closeDB();
-            getInstance().getEventos().add(evento);
+            EventoControl.getEventos().add(evento);
         } catch (ClassNotFoundException e) {
             System.err.println("Nao foi possivel encontrar plugin do banco de dados"+e.getMessage());
         } catch (SQLException e) {

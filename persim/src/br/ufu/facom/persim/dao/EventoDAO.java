@@ -11,14 +11,13 @@ public class EventoDAO {
     
     public void save (Evento evento, ConnectionSQLiteDAO conn) throws SQLException{
         String query = "INSERT INTO evento "
-                + "(event_datahora, event_duracao, event_local, event_descricao)"
-                + "VALUES(?, ?, ?, ?);";
+                + "(event_datahora, event_duracao, event_descricao)"
+                + "VALUES(?, ?, ?);";
         
         PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
         ps.setTimestamp(1, evento.getDataHora());
         ps.setTimestamp(2, evento.getDuracao());
-        ps.setString(3, evento.getLocal());
-        ps.setString(4, evento.getDescricao());
+        ps.setString(3, evento.getDescricao());
         ps.execute();        
     }
     
@@ -34,8 +33,7 @@ public class EventoDAO {
     private List<Evento> build (ResultSet rs) throws SQLException{
         List<Evento> eventos = new ArrayList<>();
         while(rs.next()){
-            eventos.add(new Evento(rs.getString("event_local"),
-                    rs.getTimestamp("event_datahora"),
+            eventos.add(new Evento(rs.getTimestamp("event_datahora"),
                     rs.getTimestamp("event_duracao"),
                     rs.getString("event_descricao")
             ));
