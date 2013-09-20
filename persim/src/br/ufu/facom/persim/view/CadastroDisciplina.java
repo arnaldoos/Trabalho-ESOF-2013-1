@@ -4,16 +4,11 @@
  */
 package br.ufu.facom.persim.view;
 
-import br.ufu.facom.persim.control.AulaControl;
 import br.ufu.facom.persim.control.DisciplinaControl;
-import br.ufu.facom.persim.dao.AulaDAO;
 import br.ufu.facom.persim.model.Aula;
 import br.ufu.facom.persim.model.Disciplina;
 import br.ufu.facom.persim.model.Professor;
 import java.beans.PropertyVetoException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
@@ -22,11 +17,7 @@ import javax.swing.table.DefaultTableModel;
 public class CadastroDisciplina extends javax.swing.JInternalFrame {
 
     String dia, horaAula, livros, horas, minutos, professor, professorEmail, sala, salaProf, disciplina, disciplinaID, horarioAula,diaSemanaAula ;
-    int contaLinhas = 0, contaLinhas2 = 0, linhaTabela, linhasTabela;
-    List<String> horarios = new ArrayList<>();
-    List<String> bibliografia = new ArrayList<>();
-    List<String> dias = new ArrayList<>();
-     
+    int contaLinhas = 0, contaLinhas2 = 0, linhaTabela, linhasTabela;     
     
     /**
      * Creates new form Teste
@@ -377,6 +368,8 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
         gravarDisciplina();
+        this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        this.dispose();
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void btCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btCancelarActionPerformed
@@ -442,10 +435,7 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         minutos = minSpinner.getValue().toString();
         horaAula = horas+":"+minutos;
         disciplinaID = idDisciplina.getText().toString();
-        //System.out.println("Dia "+dia+", hora/aula: "+horaAula+"!!");
-        System.out.println("Hora "+horaAula+"!!");
         preencher_tabela(disciplinaID,dia,horaAula);
-        //aula = new Aula(disciplinaID,horaAula,dia);
     }
     
     public void removerDiaHorario()
@@ -453,13 +443,13 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         linhaTabela = tabelaDiaAula.getSelectedRow();
         removerDaTabela(linhaTabela);
         disciplinaID = tabelaDiaAula.getValueAt(linhaTabela, 0).toString();
-        Aula idDisc = AulaControl.load(disciplinaID);
+        
     }
     
     public void gravarDisciplina()
     {
         Disciplina ds = new Disciplina();
-        Aula aula = new Aula();
+        
         
         sala = salaAula.getText().toString();
         professor = nomeProfessor.getText().toString();
@@ -468,8 +458,6 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         disciplina = nomeDisciplina.getText().toString();
         disciplinaID = idDisciplina.getText().toString();
         
-      //  horarioAula = diaSemana.getToolTipText().toString();
-        //diaSemanaAula = horaSpinner.getToolTipText().toString() + ":" + minSpinner.getToolTipText().toString();
         
         Professor pf = new Professor(professor, professorEmail, salaProf);
         linhasTabela = tabelaDiaAula.getRowCount();
@@ -477,32 +465,19 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         while(linhasTabela>0)
         {  
             disciplinaID = tabelaDiaAula.getValueAt(linhasTabela-1, 0).toString();
-            dia = tabelaDiaAula.getValueAt(linhasTabela-1, 1).toString();
-            //System.out.println("Dia "+dia);            
-            horaAula = tabelaDiaAula.getValueAt(linhasTabela-1, 2).toString();
-            //System.out.println("Hora "+horaAula);
             ds = new Disciplina(disciplinaID, disciplina, pf, sala);
             
-            //System.out.println("LinhasTabela "+linhasTabela);
-            dias.add(dia);
-            horarios.add(horaAula);
-            //aula.setDiaSemana(dia);
-            //aula.setHorario(horaAula);
-            //aula = new Aula(horaAula, dia);
+            ds.getAulas().add(new Aula(diaSemanaAula, horaAula));
             linhasTabela--;
         }
         linhasTabela = tabBibliografia.getRowCount();
         while(linhasTabela>0)
         {
             livros = tabBibliografia.getValueAt(linhasTabela-1, 0).toString();
-            System.out.println("Livro "+livros);
-            bibliografia.add(livros);
+            ds.getBibliografia().add(livros);
             linhasTabela--;
         }
-        
-        ds.setBibliografia(bibliografia);
-        //ds.setAulas(null);
-        //aula.setDiaSemana(dias);
+
         DisciplinaControl.save(ds);
         System.out.println("Gravou");
     }

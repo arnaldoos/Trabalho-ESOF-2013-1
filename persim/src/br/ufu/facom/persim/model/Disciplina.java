@@ -1,4 +1,5 @@
 package br.ufu.facom.persim.model;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
@@ -23,6 +24,8 @@ public class Disciplina {
         this.nome = nome;
         this.professor = professor;
         this.sala = sala; 
+        this.aulas = new ArrayList<>();
+        this.bibliografia = new ArrayList<>();
         //this.adicionais = adicionais;
     }
     

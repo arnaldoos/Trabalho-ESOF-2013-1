@@ -24,10 +24,10 @@ public class DisciplinaDAO {
             BibliografiaDAO bibdao = new BibliografiaDAO();
             bibdao.save(disc, conn);
         }
-        if(disc.getAulas() != null && disc.getAulas().isEmpty())
+        if(disc.getAulas() != null && !disc.getAulas().isEmpty())
         {
             AulaDAO aulaDao = new AulaDAO();
-            aulaDao.save(disc, conn);
+            aulaDao.save(disc,conn);
         }
         //ps.setString(4, disc.getAdicionais());
         ps.setString (4,disc.getSala());

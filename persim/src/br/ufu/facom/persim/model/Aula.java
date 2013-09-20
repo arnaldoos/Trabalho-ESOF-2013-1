@@ -35,5 +35,3 @@ public class Aula {
         this.diaSemana = diaSemana;
     }
 }
-
-
