@@ -3,30 +3,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Disciplina {
-    
-    /*
-     * Eventos incluem aulas, horarios de atendimento...
-     */
-    
+        
     private String ID;
     private String nome;
     private Professor professor;
-    //private String adicionais;
     private List<String> bibliografia;
     private List<EventoAvaliativo> eventos;
     private List<Aula> aulas;
     private String sala; 
     
-    public Disciplina () {}
+    public Disciplina () {
+        this.aulas = new ArrayList<>();
+        this.bibliografia = new ArrayList<>();
+        this.eventos = new ArrayList<>();
+    }
     
-    public Disciplina (String ID, String nome, Professor professor, String sala/*, String adicionais*/) {
+    public Disciplina (String ID, String nome, Professor professor, String sala) {
         this.ID = ID;
         this.nome = nome;
         this.professor = professor;
         this.sala = sala; 
         this.aulas = new ArrayList<>();
         this.bibliografia = new ArrayList<>();
-        //this.adicionais = adicionais;
+        this.eventos = new ArrayList<>();
     }
     
     public String getID() {
@@ -86,13 +85,10 @@ public class Disciplina {
     public void setSala(String sala) {
         this.sala = sala;
     }
-
-   /* public String getAdicionais() {
-        return adicionais;
+    
+    @Override
+    public String toString(){
+        return this.getNome();
     }
-
-    public void setAdicionais(String adicionais) {
-        this.adicionais = adicionais;
-    }*/
     
 }

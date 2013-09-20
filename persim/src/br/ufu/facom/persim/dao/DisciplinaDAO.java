@@ -3,6 +3,9 @@ import br.ufu.facom.persim.model.Disciplina;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 public class DisciplinaDAO {
     
@@ -29,39 +32,38 @@ public class DisciplinaDAO {
             AulaDAO aulaDao = new AulaDAO();
             aulaDao.save(disc,conn);
         }
-        //ps.setString(4, disc.getAdicionais());
+
         ps.setString (4,disc.getSala());
         ps.execute();
     }
     
-    public Disciplina load (String ID, ConnectionSQLiteDAO conn) throws SQLException{
-        
-        Disciplina ds;
-        BibliografiaDAO bibdao = new BibliografiaDAO();
-        
+    public List<Disciplina> load (ConnectionSQLiteDAO conn) throws SQLException{
         String query = "SELECT * FROM disciplina LEFT OUTER JOIN professor "
-                            + "ON disciplina.fk_prof_nome LIKE professor.prof_nome "
-                            + "WHERE disciplina.disc_id LIKE ?";
+                            + "ON disciplina.fk_prof_nome LIKE professor.prof_nome;";
         
         PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
-        ps.setString(1, ID);
         ResultSet rs = ps.executeQuery();
-        rs.next();
-        ds = build(rs);
-        ds.setBibliografia(bibdao.load(ds.getID(), conn));
         
-        return ds;
+        return build(rs, conn);
     }
     
-    private Disciplina build (ResultSet rs) throws SQLException{
-        Disciplina ds = new Disciplina();
+    private List<Disciplina> build (ResultSet rs, ConnectionSQLiteDAO conn) throws SQLException{
+        BibliografiaDAO bibdao = new BibliografiaDAO();
+        AulaDAO auladao = new AulaDAO();
+        EventoAvaliativoDAO evtdao = new EventoAvaliativoDAO();
+        List<Disciplina> ds = new ArrayList<>();
         ProfessorDAO profdao = new ProfessorDAO();
-        
-        ds.setID(rs.getString("disc_id"));
-        ds.setNome(rs.getString("disc_nome"));
-        ds.setProfessor(profdao.build(rs));
-        ds.setSala(rs.getString("disc_sala"));
-        //ds.setAdicionais(rs.getString("disc_adicionais"));
+        while(rs.next()){
+            Disciplina disciplina = new Disciplina();
+            disciplina.setID(rs.getString("disc_id"));
+            disciplina.setNome(rs.getString("disc_nome"));
+            disciplina.setProfessor(profdao.build(rs));
+            disciplina.setSala(rs.getString("disc_sala"));            
+            disciplina.setBibliografia(bibdao.load(disciplina.getID(), conn));
+            disciplina.setAulas(auladao.load(disciplina.getID(), conn));
+            disciplina.setEventos(evtdao.load(disciplina, conn));
+            ds.add(disciplina);
+        }
         
         return ds;
     }

@@ -1,5 +1,6 @@
 package br.ufu.facom.persim.dao;
 
+import br.ufu.facom.persim.config.Path;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.sql.Connection;
@@ -12,7 +13,7 @@ import java.util.Scanner;
  * Modulo de inicializacao do banco de dados a ser usado pela aplicacao
  */
 
-public class InitialConfDAO {
+public class DatabaseConfigureDAO {
     
     public static void configure (Connection dbconn, File SQLscript) 
                        throws FileNotFoundException, SQLException {
@@ -25,6 +26,11 @@ public class InitialConfDAO {
             Statement st = dbconn.createStatement();
             st.execute(query);
         }
+    }
+    
+    public static void resetDB (ConnectionSQLiteDAO conn) throws FileNotFoundException, SQLException {
+        File SQLscript = new File(Path.getDatabasePath("resetdbscript.sql"));
+        configure(conn.getDBConnection(), SQLscript);
     }
     
     public static boolean isConfigured (Connection dbconn) throws SQLException {

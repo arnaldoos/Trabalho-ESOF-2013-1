@@ -8,9 +8,6 @@ import br.ufu.facom.persim.control.DisciplinaControl;
 import br.ufu.facom.persim.model.Aula;
 import br.ufu.facom.persim.model.Disciplina;
 import br.ufu.facom.persim.model.Professor;
-import java.beans.PropertyVetoException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -460,11 +457,11 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         
         Professor pf = new Professor(professor, professorEmail, salaProf);
         linhasTabela = tabelaDiaAula.getRowCount();
-        System.out.println("LinhasTabela "+linhasTabela);
+        ds = new Disciplina(disciplinaID, disciplina, pf, sala);
         while(linhasTabela>0)
         {  
-            disciplinaID = tabelaDiaAula.getValueAt(linhasTabela-1, 0).toString();
-            ds = new Disciplina(disciplinaID, disciplina, pf, sala);
+            diaSemanaAula = tabelaDiaAula.getValueAt(linhasTabela-1, 1).toString();
+            horaAula = tabelaDiaAula.getValueAt(linhasTabela-1, 2).toString();
             
             ds.getAulas().add(new Aula(diaSemanaAula, horaAula));
             linhasTabela--;
@@ -478,7 +475,7 @@ public class CadastroDisciplina extends javax.swing.JInternalFrame {
         }
 
         DisciplinaControl.save(ds);
-        System.out.println("Gravou");
+        DisciplinaControl.getDisciplinas().add(ds);
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

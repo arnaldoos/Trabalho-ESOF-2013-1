@@ -2,7 +2,6 @@ package br.ufu.facom.persim.dao;
 
 import br.ufu.facom.persim.model.Aula;
 import br.ufu.facom.persim.model.Disciplina;
-import br.ufu.facom.persim.model.Professor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -20,7 +19,7 @@ public class AulaDAO {
                 PreparedStatement ps = conn.getDBConnection().prepareStatement(query);
                 ps.setString(1, disc.getID());
                 ps.setString(2, aula.getHorario());
-                ps.setString(2, aula.getDiaSemana());
+                ps.setString(3, aula.getDiaSemana());
                 ps.execute();
             }
         }

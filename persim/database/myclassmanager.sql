@@ -26,19 +26,19 @@ CREATE TABLE evento (
 	event_id INTEGER PRIMARY KEY AUTOINCREMENT,
 	event_datahora DATETIME,
 	event_duracao DATETIME,
-	event_descricao CHAR(200),
+	event_descricao CHAR(200)
+);
+
+CREATE TABLE evento_avaliativo (
+	event_id INTEGER PRIMARY KEY AUTOINCREMENT,
+	event_datahora DATETIME,
+	event_duracao DATETIME,
+	event_descricao CHAR(220),
+	event_aval_tipo CHAR(20),
+	event_aval_pontuacao FLOAT,
 	fk_disc_id CHAR(20),
 	FOREIGN KEY (fk_disc_id) REFERENCES disciplina(disc_id)
 		ON DELETE CASCADE
-);
-
-CREATE TABLE controle_disciplina (
-        disc_id CHAR(20) PRIMARY KEY NOT NULL,
-        notas FLOAT(10),
-        nro_faltas INTEGER,
-        tarefas_adicionais CHAR(50),
-        FOREIGN KEY (disc_id) REFERENCES disciplina(disc_id)
-        
 );
 
 CREATE TABLE sticky_notes (

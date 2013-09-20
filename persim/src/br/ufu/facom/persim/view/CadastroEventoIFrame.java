@@ -1,17 +1,16 @@
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.control.DisciplinaControl;
 import br.ufu.facom.persim.control.EventoControl;
+import br.ufu.facom.persim.model.Disciplina;
 import br.ufu.facom.persim.model.Evento;
+import br.ufu.facom.persim.model.EventoAvaliativo;
 import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import javax.swing.SpinnerDateModel;
 import java.util.Date;
-import java.util.Calendar;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
-import javax.swing.JSpinner;
 
 public class CadastroEventoIFrame extends javax.swing.JInternalFrame {
 
@@ -19,16 +18,32 @@ public class CadastroEventoIFrame extends javax.swing.JInternalFrame {
         initComponents();
         this.setupIframeConfigs();
         this.dataChooser.setDateFormatString("dd/MM/yyyy");
+        this.setupDiscChooser();
+    }
+    
+    public CadastroEventoIFrame(Date date) {
+        initComponents();
+        this.setupIframeConfigs();
+        this.dataChooser.setDateFormatString("dd/MM/yyyy");
+        this.dataChooser.setDate(date);
+    }
+    private void setupDiscChooser(){
+        this.discChooser.setModel(new DefaultComboBoxModel(DisciplinaControl.getDisciplinas().toArray()));
     }
     
     private void setupIframeConfigs(){
         this.setTitle("Criar Eventos");
         this.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         this.setClosable(true);
+        if (DisciplinaControl.getDisciplinas().isEmpty()){
+            this.avaliativoChoose.setEnabled(false);
+        }
         this.discChooser.setEnabled(false);
         this.tipoText.setEnabled(false);
         this.lblDisc.setEnabled(false);
         this.lblTipo.setEnabled(false);
+        
+        this.descricaoText.addKeyListener(new LimitDigitsListener(200, this.descricaoText));
     }
     
     /**
@@ -245,7 +260,14 @@ public class CadastroEventoIFrame extends javax.swing.JInternalFrame {
     private void saveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveBtnActionPerformed
         
         try {
-            Evento evento = new Evento();
+            Evento evento;
+            
+            if (this.avaliativoChoose.isSelected()){
+                evento = new EventoAvaliativo();
+            }
+            else{
+                evento = new Evento();
+            }
             String str = (new Timestamp(this.dataChooser.getDate().getTime())).toString().split(" ")[0];
             
             String str1 = (int)this.horaSpinner.getValue()+":"+(int)this.minSpinner.getValue();
@@ -259,7 +281,17 @@ public class CadastroEventoIFrame extends javax.swing.JInternalFrame {
             evento.setDescricao(this.descricaoText.getText());
             evento.setDuracao(new Timestamp(de.getTime()));
             
-            EventoControl.save(evento);
+            if (this.avaliativoChoose.isSelected()){
+                Disciplina disc = (Disciplina)this.discChooser.getSelectedItem();
+                EventoAvaliativo event = (EventoAvaliativo) evento;
+                event.setTipo((String) this.tipoText.getSelectedItem());
+                event.setDescricao(" ("+event.getTipo()+" de "+disc.getNome()+")\n"+event.getDescricao());
+                EventoControl.save((EventoAvaliativo) event, disc);
+                disc.getEventos().add((EventoAvaliativo)event);
+            }
+            else{
+                EventoControl.save(evento);
+            }
             
             this.clearAllFields();
             

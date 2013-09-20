@@ -1,10 +1,15 @@
 package br.ufu.facom.persim.view;
 
+import br.ufu.facom.persim.config.Path;
+import br.ufu.facom.persim.control.DatabaseConfigControl;
 import br.ufu.facom.persim.control.StickyNotesControl;
+import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 //import javax.swing.JOptionPane;
 
 public final class MainWindowFrame extends javax.swing.JFrame {
@@ -18,6 +23,7 @@ public final class MainWindowFrame extends javax.swing.JFrame {
     
     private void setMainWindowConfigurations () {
         this.initComponents();
+        this.setIconImage(Toolkit.getDefaultToolkit().getImage(Path.getImagePath("persimlogo.png")));
         this.setTitle("PERSIM - Personal Student Info. Manager");  
         Dimension tela = Toolkit.getDefaultToolkit().getScreenSize();
         this.setSize(tela.width, tela.height); 
@@ -63,9 +69,19 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         periodoMenu.setText("Periodo");
 
         novoPeriodoMenuItem.setText("Novo Periodo");
+        novoPeriodoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                novoPeriodoMenuItemActionPerformed(evt);
+            }
+        });
         periodoMenu.add(novoPeriodoMenuItem);
 
         jMenuItem1.setText("Estatísticas");
+        jMenuItem1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem1ActionPerformed(evt);
+            }
+        });
         periodoMenu.add(jMenuItem1);
 
         disciplinaMenu.setText("Disciplina");
@@ -137,6 +153,22 @@ public final class MainWindowFrame extends javax.swing.JFrame {
         this.desktopPane.add(this.cadDisc);
         this.cadDisc.setVisible(true);
     }//GEN-LAST:event_disciplinaMenuActionPerformed
+
+    private void novoPeriodoMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_novoPeriodoMenuItemActionPerformed
+        int resp = JOptionPane.showConfirmDialog(this, "Deseja começar um novo período?"
+                + " Você irá perder todos os dados deste período.", "Novo período",
+                JOptionPane.INFORMATION_MESSAGE, JOptionPane.INFORMATION_MESSAGE);
+        if (resp == 0){
+            DatabaseConfigControl.resetDB();
+            this.desktopPane.removeAll();
+            this.setDesktopConfigurations();
+            this.desktopPane.repaint();
+        }
+    }//GEN-LAST:event_novoPeriodoMenuItemActionPerformed
+
+    private void jMenuItem1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem1ActionPerformed
+        JOptionPane.showMessageDialog(this, "Não implementado para versão gratuita!", "Ops!", JOptionPane.INFORMATION_MESSAGE);
+    }//GEN-LAST:event_jMenuItem1ActionPerformed
 
     /**
      * @param args the command line arguments

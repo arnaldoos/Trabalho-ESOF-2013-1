@@ -26,9 +26,9 @@ public class ConnectionSQLiteDAO {
         
         this.conn = DriverManager.getConnection("jdbc:sqlite:"+Path.getDatabasePath("myclassmanager.db"));
             
-        if (!InitialConfDAO.isConfigured(conn)){
+        if (!DatabaseConfigureDAO.isConfigured(conn)){
             File SQLscript = new File(Path.getDatabasePath("myclassmanager.sql"));
-            InitialConfDAO.configure(this.conn, SQLscript);
+            DatabaseConfigureDAO.configure(this.conn, SQLscript);
         }
         
         System.out.println("StatusDB: Aberto.");
